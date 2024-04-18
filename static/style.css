@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #f00;
+}
+
+nav{
+    background-color: #43A5FF;
+    color: white;
+}
+
+.my-card:hover{
+    transform: scale(1.1);
+    transition: 0.2 ease-in-out;
+}
