@@ -11,27 +11,27 @@ def admins(request):
     context = {'admin': range(admin)}
     return render(request, 'main/admins/index.html', context)
 
-def operadores(request):
-    operador = 5
-    context = {'operador': range(operador)}
-    return render(request, 'main/operadores/index.html', context)
+def operators(request):
+    operator = 5
+    context = {'operator': range(operator)}
+    return render(request, 'main/operators/index.html', context)
 
-def equipamentos(request):
-    equipamento = 5
-    context = {'equipamento': range(equipamento)}
-    return render(request, 'main/equipamentos/index.html', context)
+def equipments(request):
+    equipment = 5
+    context = {'equipment': range(equipment)}
+    return render(request, 'main/equipments/index.html', context)
 
-def ordens(request):
-    ordem = 5
-    context = {'ordem': range(ordem)}
-    return render(request, 'main/ordens/index.html', context)
+def orders(request):
+    order = 5
+    context = {'order': range(order)}
+    return render(request, 'main/orders/index.html', context)
 
-def categorias(request):
-    categoria = 5
-    context = {'categoria': range(categoria)}
-    return render(request, 'main/categorias/index.html', context)
+def categories(request):
+    category = 5
+    context = {'category': range(category)}
+    return render(request, 'main/categories/index.html', context)
 
-def emprestimos(request):
-    emprestimo = 5
-    context = {'emprestimo': range(emprestimo)}
-    return render(request, 'main/emprestimos/index.html', context)
+def loans(request):
+    loan = 5
+    context = {'loan': range(loan)}
+    return render(request, 'main/loans/index.html', context)

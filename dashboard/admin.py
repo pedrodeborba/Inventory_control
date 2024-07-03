@@ -5,8 +5,8 @@ from .models import Admin
 admin.site.site_header = 'TI - Usaflex'
 
 class AdminAdm(admin.ModelAdmin):
-    list_display = ('usuario', 'email', 'cracha', 'cargo')
-    list_filter = ['cargo']
+    list_display = ('username', 'email', 'badge', 'ranking')
+    list_filter = ['ranking']
 
 #Register your models here
 admin.site.unregister(Group)
