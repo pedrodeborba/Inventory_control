@@ -1,10 +1,12 @@
 {% extends 'partials/base.html' %}
-{% block title %} Admins {% endblock %}
- 
+{% block title %} Ordens {% endblock %}
+
+{% load static %}
+
 {% block content %}
     <div class="row">
         <div class="col-lg-4">
-            <h2>Admins</h2>
+            <h2>Ordens</h2>
         </div>
         <div class="col-lg-4"></div>
         <div class="col-lg-4 d-flex justify-content-end">
@@ -16,16 +18,16 @@
             <table class="table bg-white">
                 <thead class="bg-info text-white">
                     <tr>
-                        <th class="col text-center">Nome</th>
-                        <th class="col text-center">Email</th>
-                        <th class="col text-center">Crachá</th>
-                        <th class="col text-center">Cargo</th>
+                        <th class="col text-center">Solicitante</th>
+                        <th class="col text-center">Equipamento</th>
+                        <th class="col text-center">Quantidade</th>
+                        <th class="col text-center">Movimentação</th>
                         <th class="col text-center">Editar</th>
                         <th class="col text-center">Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for _ in admin %}
+                    {% for _ in ordem %}
                         <tr>
                             <td class="col text-center">*****</td>
                             <td class="col text-center">*****</td>

@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from .forms import LoanForm
 
 # Create your views here.
 
@@ -35,3 +36,27 @@ def loans(request):
     loan = 5
     context = {'loan': range(loan)}
     return render(request, 'main/loans/index.html', context)
+
+def create_loan(request):
+    if request.method == 'POST':
+        form = LoanForm(request.POST)
+        if form.is_valid():
+            # Crie uma instância do objeto Loan a partir do formulário, mas não salve ainda
+            loan = form.save(commit=False)
+            
+            # Limpe todos os equipamentos associados ao objeto loan
+            loan.equipment.clear()
+            
+            # Obtenha os equipamentos selecionados no formulário e adicione ao objeto loan
+            selected_equipment = form.cleaned_data['equipment']
+            for equipment in selected_equipment:
+                loan.equipment.add(equipment)
+            
+            # Agora sim, salve o objeto loan no banco de dados
+            loan.save()
+            
+            return redirect('dashboard:loans')
+    else:
+        form = LoanForm()
+    
+    return render(request, 'main/loans/create_loan.html', {'form': form})

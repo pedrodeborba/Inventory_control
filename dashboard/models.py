@@ -72,3 +72,16 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.equipment} solicitado por {self.staff.username}'
+
+
+class Loan(models.Model):
+    quantity = models.IntegerField()
+    equipment = models.ForeignKey(Equipment, models.CASCADE, null=True)
+    staff = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    patrimony = models.CharField(max_length=6, blank=True, null=True)
+    maq = models.IntegerField(null=True, blank=True)
+    retreat_date = models.DateField('Data de Retirada')
+    devolution_date = models.DateField('Data de Devolução')
+
+    def __str__(self):
+        return f'Loan of {self.quantity} equipment(s) to {self.staff.username}'

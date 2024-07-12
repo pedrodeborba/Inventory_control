@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
+    'user.app.UserConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = (BASE_DIR / 'asert')
+
+DATE_INPUT_FORMATS = [
+    '%d/%m/%Y',  # Formato de data DD/MM/YYYY
+]
