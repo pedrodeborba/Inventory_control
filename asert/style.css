@@ -5,7 +5,12 @@
 }
 
 body{
-    background-color: #eee;
+    background-color: #EAEAEA;
+}
+
+nav{
+    background-color: #43A5FF;
+    color: white;
 }
 
 .my-card:hover{

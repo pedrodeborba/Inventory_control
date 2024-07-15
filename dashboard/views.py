@@ -4,7 +4,7 @@ from .forms import LoanForm
 
 # Create your views here.
 
-def dashboard(request):
+def index(request):
     return render(request, 'main/dashboard/index.html')
 
 def admins(request):
