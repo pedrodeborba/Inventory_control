@@ -2,6 +2,7 @@
 {% block title %} Dashboard {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated and user.is_staff %}
 {% include 'partials/links.html' %}
 <div class="row ">
     <div class="col-md-6 my-4">
@@ -97,4 +98,7 @@
         </div>
     </div>
 </div>
+{% else %}
+{% include 'main/dashboard/staff_index.html' %}
+{% endif %}
 {% endblock %}
