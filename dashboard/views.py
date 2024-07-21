@@ -53,18 +53,13 @@ def create_loan(request):
     if request.method == 'POST':
         form = LoanForm(request.POST)
         if form.is_valid():
-            # Crie uma instância do objeto Loan a partir do formulário, mas não salve ainda
-            loan = form.save(commit=False)
-            
-            # Limpe todos os equipamentos associados ao objeto loan
+            loan = form.save(commit=False)      
             loan.equipment.clear()
             
-            # Obtenha os equipamentos selecionados no formulário e adicione ao objeto loan
             selected_equipment = form.cleaned_data['equipment']
             for equipment in selected_equipment:
                 loan.equipment.add(equipment)
             
-            # Agora sim, salve o objeto loan no banco de dados
             loan.save()
             
             return redirect('dashboard:loans')

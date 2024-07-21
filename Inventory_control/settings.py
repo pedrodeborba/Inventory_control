@@ -143,3 +143,5 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = 'dashboard-index'
 
 LOGIN_URL = 'user-login'
+
+AUTH_USER_MODEL = 'user.User' # Personalizar o modelo padrão de User (nome, email, crachá, setor, cargo)

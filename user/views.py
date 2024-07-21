@@ -1,22 +1,23 @@
+# user/views.py
+
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import Group
-from .forms import CreateUserForm
+from django.contrib.auth import login
+from .forms import CustomUserCreationForm
+from .models import Profile
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            group = Group.objects.get(name='Customers')
-            user.groups.add(group)
+            login(request, user)
             return redirect('dashboard-index')
     else:
-        form = CreateUserForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'user/register.html', context)
+        form = CustomUserCreationForm()
+    return render(request, 'user/register.html', {'form': form})
 
+@login_required
 def profile(request):
-    return render(request, 'user/profile.html')
+    user = request.user
+    return render(request, 'user/profile.html', {'user': user})

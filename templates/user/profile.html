@@ -1,5 +1,5 @@
 {% extends 'partials/base.html' %}
-{% block title %}Customer Page{% endblock %}
+{% block title %}Profile Page{% endblock %}
 
 {% block content %}
 <div class="row my-4">
@@ -7,24 +7,36 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header bg-info text-white">
-                Customer Detail Page
+                Profile Information
             </div>
             <div class="row p-3">
                 <div class="col-md-8">
                     <table class="table table-borderless">
                         <thead>
-                            <span class="h4">Porfile Information</span class="h4">
-                            <a class="btn btn-info btn-sm float-right" href="">Edit</a>
-                            <hr>
+                            <tr>
+                                <th colspan="2">Profile Information</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">Name</th>
+                                <th scope="row">Username</th>
                                 <td>{{ user.username }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Email</th>
                                 <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Badge</th>
+                                <td>{{ user.badge }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Sector</th>
+                                <td>{{ user.sector }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Ranking</th>
+                                <td>{{ user.ranking }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -36,5 +48,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

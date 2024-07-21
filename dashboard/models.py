@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 MOVIMENTATION = (
     ('Entrada', 'Entrada'),
@@ -60,7 +60,7 @@ class Order(models.Model):
     num_called = models.IntegerField()
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, null=True)
     information = models.CharField(max_length=255, null=True)
-    staff = models.ForeignKey(User, models.CASCADE, null=True)
+    staff = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     order_quantity = models.PositiveIntegerField(null=True)
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE)
     branch = models.CharField(max_length=50, choices=BRANCH)
@@ -77,7 +77,7 @@ class Order(models.Model):
 class Loan(models.Model):
     quantity = models.IntegerField()
     equipment = models.ForeignKey(Equipment, models.CASCADE, null=True)
-    staff = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    staff = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     patrimony = models.CharField(max_length=6, blank=True, null=True)
     maq = models.IntegerField(null=True, blank=True)
     retreat_date = models.DateField('Data de Retirada')
