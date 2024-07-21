@@ -14,6 +14,9 @@
                     <a class="nav-link active" aria-current="page" href="{% url 'dashboard-index' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'user-profile' %}">Perfil</a>
+                </li>
+                <li class="nav-item">
                     <form action="{% url 'user-logout' %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="nav-link active" aria-current="page" style="border: none; background-color: transparent; cursor: pointer;">Logout</button>

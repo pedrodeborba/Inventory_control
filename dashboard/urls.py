@@ -5,8 +5,7 @@ from django.contrib import admin
 urlpatterns = [
     path('', views.index, name='index'),
     path('dashboard', views.dashboard, name='dashboard-index'),
-    path('admin/', admin.site.urls),
-    path('admins', views.admins, name='dashboard-admins'),
+    path('admins/', views.admins, name='dashboard-admins'),
     path('operators/', views.operators, name='dashboard-operators'),
     path('equipments/', views.equipments, name='dashboard-equipments'),
     path('operators/', views.operators, name='dashboard-operators'),

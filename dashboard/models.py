@@ -17,9 +17,9 @@ BRANCH = (
 # Operadores
 class Operator(models.Model):
     username = models.CharField(max_length=100, null=True)
-    badge = models.IntegerField(null=True)
+    badge = models.IntegerField(null=True, unique=True)
     email = models.EmailField(max_length=254, null=True)
-    ranking = models.CharField(max_length=100, null=True)
+    ranking = models.CharField(max_length=100, null=True, unique=True)
     password = models.CharField(max_length=128, null=True)
 
     def __str__(self):
