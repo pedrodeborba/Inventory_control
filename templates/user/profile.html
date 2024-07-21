@@ -20,25 +20,17 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Name</th>
-                                <td></td>
+                                <td>{{ user.username }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Email</th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Phone</th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Address</th>
-                                <td></td>
+                                <td>{{ user.email }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="col-md-4">
-                    <img class="img-thumbnail" src="" alt="profile-image">
+                    <img class="img-thumbnail" src="{{ user.profile.image.url }}" alt="profile-image">
                 </div>
             </div>
         </div>
