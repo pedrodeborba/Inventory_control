@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import LoanForm
+from .forms import EquipmentForm, LoanForm
+from .models import Equipment
 
 # Create your views here.
 @login_required
@@ -26,9 +27,51 @@ def operators(request):
 
 @login_required
 def equipments(request):
-    equipment = 5
-    context = {'equipment': range(equipment)}
+    equipment = Equipment.objects.all()
+
+    context={
+        'equipment': equipment,
+    }
     return render(request, 'main/equipments/index.html', context)
+
+@login_required
+def create_equipment(request):
+    if request.method == 'POST':
+        form = EquipmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-equipments')
+    else:
+        form = EquipmentForm()
+    
+    return render(request, 'main/equipments/create_equipment.html', {'form': form})
+
+@login_required
+def delete_equipment(request, id):
+    equipment = Equipment.objects.get(id=id)
+    if request.method == 'POST':
+        equipment.delete()
+        return redirect('dashboard-equipments')
+    context = {
+        'equipment': equipment
+    }
+    return render(request, 'main/equipments/delete_equipment.html', context)
+
+@login_required
+def update_equipment(request, id):
+    equipment = get_object_or_404(Equipment, id=id)
+    if request.method == 'POST':
+        form = EquipmentForm(request.POST, instance=equipment)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-equipments')
+    else:
+        form = EquipmentForm(instance=equipment)
+    context = {
+        'form': form,
+        'equipment': equipment
+    }
+    return render(request, 'main/equipments/update_equipment.html', context)
 
 @login_required
 def orders(request):

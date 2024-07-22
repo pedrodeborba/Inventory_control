@@ -1,5 +1,5 @@
 from django import forms
-from .models import Loan
+from .models import Equipment, Loan
 from datetime import datetime
 
 class DateInput(forms.DateInput):
@@ -12,3 +12,8 @@ class LoanForm(forms.ModelForm):
     class Meta:
         model = Loan
         fields = ['quantity', 'equipment', 'staff', 'patrimony', 'maq', 'retreat_date', 'devolution_date']
+
+class EquipmentForm(forms.ModelForm):
+    class Meta:
+        model = Equipment
+        fields = ['name', 'category']
