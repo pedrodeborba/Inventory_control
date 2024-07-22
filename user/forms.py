@@ -2,7 +2,7 @@
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Sector
+from .models import User, Sector, Profile
 
 class CustomUserCreationForm(UserCreationForm):
     badge = forms.IntegerField(required=False)
@@ -12,3 +12,13 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2', 'badge', 'ranking', 'sector']
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'badge', 'ranking', 'sector']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']

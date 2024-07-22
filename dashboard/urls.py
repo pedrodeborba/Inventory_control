@@ -12,5 +12,5 @@ urlpatterns = [
     path('orders/', views.orders, name='dashboard-orders'),
     path('categories/', views.categories, name='dashboard-categories'),
     path('loans/', views.loans, name='dashboard-loans'),
-    path('loans/create/', views.create_loan, name='dashboard-create_loan'),
+    path('loans/create/', views.create_loan, name='dashboard-create-loan'),
 ]
