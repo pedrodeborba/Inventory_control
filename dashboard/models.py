@@ -27,7 +27,7 @@ class Staff(models.Model):
     email = models.EmailField(max_length=254, null=True)
     badge = models.IntegerField(null=True, unique=True)
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE, null=True)
-    ranking = models.CharField(max_length=100, null=True, unique=True)
+    ranking = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return f'{self.username}'
@@ -53,7 +53,7 @@ class Equipment(models.Model):
 
 # Ordens
 class Order(models.Model):
-    num_called = models.IntegerField()
+    num_called = models.IntegerField(unique=True)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, null=True)
     information = models.CharField(max_length=255, null=True)
     staff = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
@@ -62,7 +62,7 @@ class Order(models.Model):
     branch = models.CharField(max_length=50, choices=BRANCH)
     date = models.DateTimeField(auto_now_add=True)
     operator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
-    patrimony = models.CharField(max_length=6, blank=True, null=True)
+    patrimony = models.CharField(max_length=6, blank=True, null=True, unique=True)
     maq = models.IntegerField(null=True, blank=True)
     movimentation = models.CharField(max_length=10, blank=False, choices=MOVIMENTATION)
 
@@ -74,7 +74,7 @@ class Loan(models.Model):
     quantity = models.IntegerField()
     equipment = models.ForeignKey(Equipment, models.CASCADE, null=True)
     staff = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
-    patrimony = models.CharField(max_length=6, blank=True, null=True)
+    patrimony = models.CharField(max_length=6, blank=True, null=True, unique=True)
     maq = models.IntegerField(null=True, blank=True)
     retreat_date = models.DateField('Data de Retirada')
     devolution_date = models.DateField('Data de Devolução')

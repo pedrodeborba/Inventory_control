@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from dashboard.models import Sector
 
 class User(AbstractUser):
-    badge = models.IntegerField(null=True, blank=True)
+    badge = models.IntegerField(null=True, blank=True, unique=True)
     ranking = models.CharField(max_length=100, null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=models.SET_NULL, null=True, blank=True)
 
