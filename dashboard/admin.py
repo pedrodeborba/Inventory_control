@@ -1,12 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import Operator, Equipment, Order, Category, Sector, Loan
+from .models import Staff, Equipment, Order, Category, Sector, Loan
 
 admin.site.site_header = 'TI - Usaflex'
 
-class OperatorAdm(admin.ModelAdmin):
-    list_display = ('username', 'email', 'badge', 'ranking')
-    list_filter = ['ranking']
+class StaffAdm(admin.ModelAdmin):
+    list_display = ('username', 'email', 'badge', 'sector', 'ranking')
+    list_filter = ['sector', 'ranking']
 
 class EquipmentAdm(admin.ModelAdmin):
     list_display = ('name', 'category')
@@ -21,7 +21,7 @@ class LoanAdm(admin.ModelAdmin):
 
 # Register your models here
 admin.site.unregister(Group)
-admin.site.register(Operator, OperatorAdm)
+admin.site.register(Staff, StaffAdm)
 admin.site.register(Equipment, EquipmentAdm)
 admin.site.register(Order, OrderAdm)
 admin.site.register(Category)

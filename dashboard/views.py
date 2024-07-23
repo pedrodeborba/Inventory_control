@@ -14,16 +14,12 @@ def dashboard(request):
     return render(request, 'main/dashboard/index.html')
 
 @login_required
-def admins(request):
-    admin = 5
-    context = {'admin': range(admin)}
-    return render(request, 'main/admins/index.html', context)
+def operators(request):
+    return render(request, 'main/operators/index.html')
 
 @login_required
-def operators(request):
-    operator = 5
-    context = {'operator': range(operator)}
-    return render(request, 'main/operators/index.html', context)
+def staffs(request):
+    return render(request, 'main/staffs/index.html')
 
 @login_required
 def equipments(request):

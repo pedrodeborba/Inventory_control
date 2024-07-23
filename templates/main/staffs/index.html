@@ -1,10 +1,10 @@
 {% extends 'partials/base.html' %}
-{% block title %} Admins {% endblock %}
- 
+{% block title %} Funcionários {% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-lg-4">
-            <h2>Admins</h2>
+            <h2>Funcionários</h2>
         </div>
         <div class="col-lg-4"></div>
         <div class="col-lg-4 d-flex justify-content-end">
@@ -25,7 +25,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for _ in admin %}
                         <tr>
                             <td class="col text-center">*****</td>
                             <td class="col text-center">*****</td>
@@ -48,7 +47,6 @@
                                 </a>
                             </td>
                         </tr>
-                    {% endfor %}
                 </tbody>
             </table>
         </div>
