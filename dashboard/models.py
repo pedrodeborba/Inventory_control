@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+import pytz
+from django.utils import timezone
 
 MOVIMENTATION = (
     ('Entrada', 'Entrada'),
@@ -53,11 +55,10 @@ class Equipment(models.Model):
 
 # Ordens
 class Order(models.Model):
-    num_called = models.IntegerField(unique=True)
+    num_called = models.IntegerField()
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, null=True)
     information = models.CharField(max_length=255, blank=True, null=True)
     staff = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
-    order_quantity = models.PositiveIntegerField(null=True)
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE)
     branch = models.CharField(max_length=50, choices=BRANCH)
     date = models.DateTimeField(auto_now_add=True)
@@ -68,6 +69,14 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.equipment} solicitado por {self.staff.username}'
+    
+    def formatted_date(self):
+        # Define o fuso horário de Brasília
+        brasilia_tz = pytz.timezone('America/Sao_Paulo')
+        # Converte a data armazenada no banco de dados para o fuso horário de Brasília
+        local_date = self.date.astimezone(brasilia_tz)
+        # Formata a data para dd/mm/yyyy às HH:MM
+        return local_date.strftime('%d/%m/%Y às %H:%M')
 
 
 class Loan(models.Model):

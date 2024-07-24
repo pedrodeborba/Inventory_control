@@ -1,11 +1,10 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import EquipmentForm, LoanForm, StaffForm, CategoryForm
-from .models import Equipment, Staff, Category
+from .forms import EquipmentForm, LoanForm, StaffForm, CategoryForm, OrderForm
+from .models import Equipment, Staff, Category, Order
 from django.conf import settings
-
-# Create your views here.
+#=============================Index=================================
 @login_required
 def index(request):
     return redirect('user-login')
@@ -121,13 +120,6 @@ def update_equipment(request, id):
     }
     return render(request, 'main/equipments/update_equipment.html', context)
 
-#========================Orders==============================
-@login_required
-def orders(request):
-    order = 5
-    context = {'order': range(order)}
-    return render(request, 'main/orders/index.html', context)
-
 #========================Categories==============================
 @login_required
 def categories(request):
@@ -147,7 +139,6 @@ def create_category(request):
             return redirect('dashboard-categories')
     else:
         form = CategoryForm()
-    
     return render(request, 'main/categories/create_category.html', {'form': form})
 
 @login_required
@@ -176,9 +167,25 @@ def update_category(request, id):
         'category': category
     }
     return render(request, 'main/categories/update_category.html', context)
-    category = 5
-    context = {'category': range(category)}
-    return render(request, 'main/categories/index.html', context)
+
+#========================Orders==============================
+@login_required
+def orders(request):
+    order = Order.objects.all()
+    context = {'order': order}
+    return render(request, 'main/orders/index.html', context)
+
+@login_required
+def create_order(request):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-orders')
+    else:
+        form = OrderForm()
+    return render(request, 'main/orders/create_order.html', {'form': form})
+
 
 #========================Loans==============================
 @login_required

@@ -21,7 +21,7 @@ class CustomUserAdm(BaseUserAdmin):
     add_form = CustomUserCreationForm
     
     list_display = ('username', 'email', 'first_name', 'last_name', 'badge', 'sector', 'ranking', 'is_staff', 'is_active')
-    list_filter = ('is_staff', 'is_active', 'sector')  # Adicione mais filtros conforme necessário
+    list_filter = ('is_staff', 'is_active', 'sector')
     search_fields = ('username', 'email', 'first_name', 'last_name', 'badge', 'sector', 'ranking')
     ordering = ('username',)
     
