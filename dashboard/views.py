@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import EquipmentForm, LoanForm, StaffForm
-from .models import Equipment, Staff
+from .forms import EquipmentForm, LoanForm, StaffForm, CategoryForm
+from .models import Equipment, Staff, Category
 from django.conf import settings
 
 # Create your views here.
@@ -131,6 +131,51 @@ def orders(request):
 #========================Categories==============================
 @login_required
 def categories(request):
+    category = Category.objects.all()
+
+    context={
+        'category': category,
+    }
+    return render(request, 'main/categories/index.html', context)
+
+@login_required
+def create_category(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-categories')
+    else:
+        form = CategoryForm()
+    
+    return render(request, 'main/categories/create_category.html', {'form': form})
+
+@login_required
+def delete_category(request, id):
+    category = Category.objects.get(id=id)
+    if request.method == 'POST':
+        category.delete()
+        return redirect('dashboard-categories')
+    context = {
+        'category': category
+    }
+    return render(request, 'main/categories/delete_category.html', context)
+
+@login_required
+def update_category(request, id):
+    category = get_object_or_404(Category, id=id)
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-categories')
+    else:
+        form = CategoryForm(instance=category)
+    context = {
+        'form': form,
+        'category': category
+    }
+    return render(request, 'main/categories/update_category.html', context)
     category = 5
     context = {'category': range(category)}
     return render(request, 'main/categories/index.html', context)

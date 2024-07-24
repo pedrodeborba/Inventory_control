@@ -55,7 +55,7 @@ class Equipment(models.Model):
 class Order(models.Model):
     num_called = models.IntegerField(unique=True)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, null=True)
-    information = models.CharField(max_length=255, null=True)
+    information = models.CharField(max_length=255, blank=True, null=True)
     staff = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
     order_quantity = models.PositiveIntegerField(null=True)
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE)

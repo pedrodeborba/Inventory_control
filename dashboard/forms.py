@@ -1,6 +1,5 @@
 from django import forms
-from .models import Staff, Equipment, Loan
-from datetime import datetime
+from .models import Staff, Equipment, Loan, Category
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -22,3 +21,8 @@ class StaffForm(forms.ModelForm):
     class Meta:
         model = Staff
         fields = ['username', 'email', 'badge', 'sector', 'ranking']
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name']
