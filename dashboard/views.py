@@ -186,6 +186,33 @@ def create_order(request):
         form = OrderForm()
     return render(request, 'main/orders/create_order.html', {'form': form})
 
+@login_required
+def delete_order(request, id):
+    order = Order.objects.get(id=id)
+    if request.method == 'POST':
+        order.delete()
+        return redirect('dashboard-orders')
+    context = {
+        'order': order
+    }
+    return render(request, 'main/orders/delete_order.html', context)
+
+@login_required
+def update_order(request, id):
+    order = get_object_or_404(Order, id=id)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-orders')
+    else:
+        form = OrderForm(instance=order)
+    context = {
+        'form': form,
+        'order': order
+    }
+    return render(request, 'main/orders/update_order.html', context)
+
 
 #========================Loans==============================
 @login_required

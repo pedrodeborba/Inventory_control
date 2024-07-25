@@ -23,8 +23,8 @@ urlpatterns = [
     #========================Orders==============================
     path('orders/', views.orders, name='dashboard-orders'),
     path('orders/create/', views.create_order, name='dashboard-create-order'),
-    #path('orders/delete/<int:id>/', views.delete_order, name='dashboard-delete-order'),
-    #path('orders/update/<int:id>/', views.update_order, name='dashboard-update-order'),
+    path('orders/delete/<int:id>/', views.delete_order, name='dashboard-delete-order'),
+    path('orders/update/<int:id>/', views.update_order, name='dashboard-update-order'),
 
     path('loans/', views.loans, name='dashboard-loans'),
     path('loans/create/', views.create_loan, name='dashboard-create-loan'),

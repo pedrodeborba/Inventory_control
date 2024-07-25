@@ -36,12 +36,12 @@
                             <td class="col text-center">{{ order.operator }}</td>
                             <td class="col text-center">{{ order.movimentation }}</td>
                             <td class="col text-center">
-                                <a class="btn btn-sm mr-2" href="">
+                                <a class="btn btn-sm mr-2" href="{% url 'dashboard-update-order' order.id %}">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                             </td>
                             <td class="col text-center">
-                                <a class="btn btn-sm ml-2" href="">
+                                <a class="btn btn-sm ml-2" href="{% url 'dashboard-delete-order' order.id %}">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>
