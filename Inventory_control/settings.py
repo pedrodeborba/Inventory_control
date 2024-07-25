@@ -111,11 +111,13 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 
@@ -145,3 +147,5 @@ LOGIN_REDIRECT_URL = 'dashboard-index'
 LOGIN_URL = 'user-login'
 
 AUTH_USER_MODEL = 'user.User' # Personalizar o modelo padrão de User (nome, email, crachá, setor, cargo)
+
+DATE_INPUT_FORMATS = ['%d/%m/%Y', '%Y-%m-%d']

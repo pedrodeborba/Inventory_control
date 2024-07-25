@@ -88,5 +88,11 @@ class Loan(models.Model):
     retreat_date = models.DateField('Data de Retirada')
     devolution_date = models.DateField('Data de Devolução')
 
+    def formatted_retreat_date(self):
+        return self.retreat_date.strftime('%d/%m/%Y')
+    
+    def formatted_devolution_date(self):
+        return self.devolution_date.strftime('%d/%m/%Y')
+
     def __str__(self):
-        return f'Loan of {self.quantity} equipment(s) to {self.staff.username}'
+        return f'Empréstimo de {self.equipment} solicitado por {self.staff.username}'

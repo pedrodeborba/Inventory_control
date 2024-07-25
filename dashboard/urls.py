@@ -25,7 +25,9 @@ urlpatterns = [
     path('orders/create/', views.create_order, name='dashboard-create-order'),
     path('orders/delete/<int:id>/', views.delete_order, name='dashboard-delete-order'),
     path('orders/update/<int:id>/', views.update_order, name='dashboard-update-order'),
-
+    #========================Loans==============================
     path('loans/', views.loans, name='dashboard-loans'),
     path('loans/create/', views.create_loan, name='dashboard-create-loan'),
+    path('loans/delete/<int:id>/', views.delete_loan, name='dashboard-delete-loan'),
+    path('loans/update/<int:id>/', views.update_loan, name='dashboard-update-loan'),
 ]

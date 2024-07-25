@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import EquipmentForm, LoanForm, StaffForm, CategoryForm, OrderForm
-from .models import Equipment, Staff, Category, Order
+from .forms import EquipmentForm, StaffForm, CategoryForm, OrderForm, LoanForm
+from .models import Equipment, Staff, Category, Order, Loan
 from django.conf import settings
 #=============================Index=================================
 @login_required
@@ -217,8 +217,8 @@ def update_order(request, id):
 #========================Loans==============================
 @login_required
 def loans(request):
-    loan = 5
-    context = {'loan': range(loan)}
+    loan = Loan.objects.all()
+    context = {'loan': loan}
     return render(request, 'main/loans/index.html', context)
 
 @login_required
@@ -226,17 +226,35 @@ def create_loan(request):
     if request.method == 'POST':
         form = LoanForm(request.POST)
         if form.is_valid():
-            loan = form.save(commit=False)      
-            loan.equipment.clear()
-            
-            selected_equipment = form.cleaned_data['equipment']
-            for equipment in selected_equipment:
-                loan.equipment.add(equipment)
-            
-            loan.save()
-            
-            return redirect('dashboard:loans')
+            form.save()
+            return redirect('dashboard-loans')
     else:
         form = LoanForm()
-    
     return render(request, 'main/loans/create_loan.html', {'form': form})
+
+@login_required
+def delete_loan(request, id):
+    loan = Loan.objects.get(id=id)
+    if request.method == 'POST':
+        loan.delete()
+        return redirect('dashboard-loans')
+    context = {
+        'loan': loan
+    }
+    return render(request, 'main/loans/delete_loan.html', context)
+
+@login_required
+def update_loan(request, id):
+    loan= get_object_or_404(Loan, id=id)
+    if request.method == 'POST':
+        form = LoanForm(request.POST, instance=loan)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-loans')
+    else:
+        form = LoanForm(instance=loan)
+    context = {
+        'form': form,
+        'loan': loan
+    }
+    return render(request, 'main/loans/update_loan.html', context)

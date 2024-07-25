@@ -1,79 +1,13 @@
 {% extends 'partials/base.html' %}
 {% block title %} Criar Empréstimo {% endblock %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container">
-    <h2>Criar Empréstimo</h2>
-    <form method="post">
+<div class="card card-body">
+    <form method="POST">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="id_quantity">Quantidade</label>
-            {{ form.quantity }}
-        </div>
-        <div class="form-group">
-            <label for="id_equipment">Equipamento</label>
-            <select name="equipments" id="equipments" class="form-control" multiple>
-                {% for equipment in form.equipment.field.queryset %}
-                    <option value="{{ equipment.pk }}">{{ equipment.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="id_staff">Funcionário</label>
-            {{ form.staff }}
-        </div>
-        <div class="form-group">
-            <label for="id_patrimony">Patrimônio</label>
-            {{ form.patrimony }}
-        </div>
-        <div class="form-group">
-            <label for="id_maq">Maq</label>
-            {{ form.maq }}
-        </div>
-        <div class="form-group">
-            <label for="id_retreat_date">Data de Retirada</label>
-            {{ form.retreat_date }}
-        </div>
-        <div class="form-group">
-            <label for="id_devolution_date">Data de Devolução</label>
-            {{ form.devolution_date }}
-        </div>
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        {{ form|crispy }}
+        <input class="btn btn-success btn-block" type="submit" value="Adicionar">
     </form>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const quantityField = document.getElementById('id_quantity');
-        const equipmentField = document.getElementById('equipments');
-        const dateField = document.getElementById('id_devolution_date');
-
-        quantityField.addEventListener('input', function() {
-            const maxSelections = parseInt(quantityField.value) || 0;
-            equipmentField.setAttribute('size', maxSelections);
-            for (let option of equipmentField.options) {
-                option.disabled = false;
-            }
-            if (maxSelections > 0) {
-                for (let i = maxSelections; i < equipmentField.options.length; i++) {
-                    equipmentField.options[i].disabled = true;
-                }
-            }
-        });
-
-        dateField.addEventListener('input', function() {
-            let value = dateField.value;
-            if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) {
-                dateField.setCustomValidity('');
-            } else {
-                dateField.setCustomValidity('Por favor, insira uma data no formato dd/mm/aaaa');
-            }
-        });
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
-<script>
-    new MultiSelectTag('equipments')  // id
-</script>
-
 {% endblock %}
