@@ -59,7 +59,13 @@ class Equipment(models.Model):
     supplier = models.CharField('Fornecedor', max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return (
+            f"{self.item or '[Nome não especificado]'}, "
+            f"{self.model or '[Modelo não especificado]'}, "
+            f"MAQ:{self.maq or '[Maq não especificado]'}, "
+            f"Patrimônio:{self.patrimony or '[Patrimônio não especificado],'} "
+            f"SN/PN:{self.sn_pn or '[SN/PN não especificado]'}"
+        )
 
 # Ordens
 class Order(models.Model):
