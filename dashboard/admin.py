@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import Staff, Equipment, Order, Category, Sector, Loan
+from .models import Staff, Equipment, Order, Item, Sector, Loan
 
 admin.site.site_header = 'TI - Usaflex'
 
@@ -9,8 +9,14 @@ class StaffAdm(admin.ModelAdmin):
     list_filter = ['sector', 'ranking']
 
 class EquipmentAdm(admin.ModelAdmin):
-    list_display = ('name', 'category')
-    list_filter = ['category']
+    list_display = (
+        'item', 'model', 'manufacturer', 'maq', 'patrimony', 'sn_pn', 
+        'cost_center', 'express_code', 'immobilized', 'nf', 'nf_date', 
+        'information', 'sector', 'supplier'
+    )
+    list_filter = ['manufacturer', 'sector', 'immobilized']
+    search_fields = ['item', 'patrimony', 'model', 'sn_pn', 'cost_center', 'express_code', 'nf', 'supplier']
+    ordering = ['item']
 
 class OrderAdm(admin.ModelAdmin):
     list_display = ('num_called', 'equipment', 'staff', 'sector', 'branch', 'date', 'operator', 'patrimony', 'maq', 'movimentation')
@@ -24,6 +30,6 @@ admin.site.unregister(Group)
 admin.site.register(Staff, StaffAdm)
 admin.site.register(Equipment, EquipmentAdm)
 admin.site.register(Order, OrderAdm)
-admin.site.register(Category)
+admin.site.register(Item)
 admin.site.register(Sector)
 admin.site.register(Loan, LoanAdm)

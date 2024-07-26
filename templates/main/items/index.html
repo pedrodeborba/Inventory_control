@@ -1,14 +1,14 @@
 {% extends 'partials/base.html' %}
-{% block title %} Categorias {% endblock %}
+{% block title %} Itens {% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-lg-4">
-            <h2>Categorias</h2>
+            <h2>Itens</h2>
         </div>
         <div class="col-lg-4"></div>
         <div class="col-lg-4 d-flex justify-content-end">
-            <a href="{% url 'dashboard-create-category' %}" class="btn btn-info float-right">Adicionar</a>
+            <a href="{% url 'dashboard-create-item' %}" class="btn btn-info float-right">Adicionar</a>
         </div>
     </div>
     <div class="row">
@@ -16,20 +16,20 @@
             <table class="table bg-white">
                 <thead class="bg-info text-white">
                     <tr>
-                        <th class="col text-center">Categoria</th>
+                        <th class="col text-center">Item</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for category in category %}
+                    {% for item in item %}
                         <tr>
-                            <td class="col text-center">{{ category.name }}</td>
+                            <td class="col text-center">{{ item.item }}</td>
                             <td class="col text-center">
-                                <a class="btn btn-sm mr-2" href="{% url 'dashboard-update-category' category.id %}">
+                                <a class="btn btn-sm mr-2" href="{% url 'dashboard-update-item' item.id %}">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                             </td>
                             <td class="col text-center">
-                                <a class="btn btn-sm ml-2" href="{% url 'dashboard-delete-category' category.id %}">
+                                <a class="btn btn-sm ml-2" href="{% url 'dashboard-delete-item' item.id %}">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>

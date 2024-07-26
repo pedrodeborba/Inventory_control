@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import EquipmentForm, StaffForm, CategoryForm, OrderForm, LoanForm
-from .models import Equipment, Staff, Category, Order, Loan
+from .forms import EquipmentForm, StaffForm, ItemForm, OrderForm, LoanForm
+from .models import Equipment, Staff, Item, Order, Loan
 from django.conf import settings
 #=============================Index=================================
 @login_required
@@ -120,53 +120,53 @@ def update_equipment(request, id):
     }
     return render(request, 'main/equipments/update_equipment.html', context)
 
-#========================Categories==============================
+#========================Items==============================
 @login_required
-def categories(request):
-    category = Category.objects.all()
+def items(request):
+    item = Item.objects.all()
 
     context={
-        'category': category,
+        'item': item,
     }
-    return render(request, 'main/categories/index.html', context)
+    return render(request, 'main/items/index.html', context)
 
 @login_required
-def create_category(request):
+def create_item(request):
     if request.method == 'POST':
-        form = CategoryForm(request.POST)
+        form = ItemForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('dashboard-categories')
+            return redirect('dashboard-items')
     else:
-        form = CategoryForm()
-    return render(request, 'main/categories/create_category.html', {'form': form})
+        form = ItemForm()
+    return render(request, 'main/items/create_item.html', {'form': form})
 
 @login_required
-def delete_category(request, id):
-    category = Category.objects.get(id=id)
+def delete_item(request, id):
+    item = Item.objects.get(id=id)
     if request.method == 'POST':
-        category.delete()
-        return redirect('dashboard-categories')
+        item.delete()
+        return redirect('dashboard-items')
     context = {
-        'category': category
+        'item': item
     }
-    return render(request, 'main/categories/delete_category.html', context)
+    return render(request, 'main/items/delete_item.html', context)
 
 @login_required
-def update_category(request, id):
-    category = get_object_or_404(Category, id=id)
+def update_item(request, id):
+    item = get_object_or_404(Item, id=id)
     if request.method == 'POST':
-        form = CategoryForm(request.POST, instance=category)
+        form = ItemForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            return redirect('dashboard-categories')
+            return redirect('dashboard-items')
     else:
-        form = CategoryForm(instance=category)
+        form = ItemForm(instance=item)
     context = {
         'form': form,
-        'category': category
+        'item': item
     }
-    return render(request, 'main/categories/update_category.html', context)
+    return render(request, 'main/items/update_item.html', context)
 
 #========================Orders==============================
 @login_required

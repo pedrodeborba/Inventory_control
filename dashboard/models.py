@@ -34,24 +34,32 @@ class Staff(models.Model):
     def __str__(self):
         return f'{self.username}'
 
-# Categories
-class Category(models.Model):
-    name = models.CharField(max_length=100, blank=False)
+# Items
+class Item(models.Model):
+    item = models.CharField(max_length=100, blank=False)
 
     def __str__(self):
-        return f'{self.name}'
-    
-    class Meta:
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+        return f'{self.item}'
 
 # Equipamentos
 class Equipment(models.Model):
-    name = models.CharField(max_length=100, blank=False)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
+    model = models.CharField('Modelo', max_length=255, blank=True, null=True)
+    manufacturer = models.CharField('Fabricante', max_length=255, blank=True, null=True)
+    maq = models.IntegerField('Maq', null=True, blank=True)
+    patrimony = models.IntegerField('Patrimônio', blank=True, null=True, unique=True)
+    sn_pn = models.CharField('S/N - P/N', max_length=50, blank=True, null=True)
+    cost_center = models.IntegerField('Centro de Custo', blank=True, null=True)
+    express_code = models.CharField('Express Code', max_length=255, blank=True, null=True)
+    immobilized = models.IntegerField('Imobilizado', blank=True, null=True)
+    nf = models.CharField('NF', max_length=50, blank=True, null=True)
+    nf_date = models.DateField('Data NF', null=True, blank=True)
+    information = models.TextField('Informações', blank=True, null=True)
+    sector = models.ForeignKey(Sector, on_delete=models.CASCADE, null=True)
+    supplier = models.CharField('Fornecedor', max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 # Ordens
 class Order(models.Model):

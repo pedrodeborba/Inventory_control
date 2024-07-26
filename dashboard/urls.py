@@ -15,11 +15,11 @@ urlpatterns = [
     path('equipments/create/', views.create_equipment, name='dashboard-create-equipment'),
     path('equipments/delete/<int:id>/', views.delete_equipment, name='dashboard-delete-equipment'),
     path('equipments/update/<int:id>/', views.update_equipment, name='dashboard-update-equipment'),
-    #========================Categories==============================
-    path('categories/', views.categories, name='dashboard-categories'),
-    path('categories/create/', views.create_category, name='dashboard-create-category'),
-    path('categories/delete/<int:id>/', views.delete_category, name='dashboard-delete-category'),
-    path('categories/update/<int:id>/', views.update_category, name='dashboard-update-category'),
+    #========================items==============================
+    path('items/', views.items, name='dashboard-items'),
+    path('items/create/', views.create_item, name='dashboard-create-item'),
+    path('items/delete/<int:id>/', views.delete_item, name='dashboard-delete-item'),
+    path('items/update/<int:id>/', views.update_item, name='dashboard-update-item'),
     #========================Orders==============================
     path('orders/', views.orders, name='dashboard-orders'),
     path('orders/create/', views.create_order, name='dashboard-create-order'),

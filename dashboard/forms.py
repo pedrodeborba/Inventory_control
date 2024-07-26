@@ -1,20 +1,27 @@
 from django import forms
-from .models import Staff, Equipment, Loan, Category, Order
+from .models import Staff, Equipment, Loan, Item, Order
 
 class EquipmentForm(forms.ModelForm):
     class Meta:
         model = Equipment
-        fields = ['name', 'category']
+        fields = [
+            'item', 'model', 'manufacturer', 'maq', 'patrimony', 'sn_pn', 
+            'cost_center', 'express_code', 'immobilized', 'nf', 'nf_date', 
+            'information', 'sector', 'supplier'
+        ]
+        widgets = {
+            'nf_date': forms.DateInput(format='%d/%m/%Y', attrs={'type': 'date'}),
+        }
 
 class StaffForm(forms.ModelForm):
     class Meta:
         model = Staff
         fields = ['username', 'email', 'badge', 'sector', 'ranking']
 
-class CategoryForm(forms.ModelForm):
+class ItemForm(forms.ModelForm):
     class Meta:
-        model = Category
-        fields = ['name']
+        model = Item
+        fields = ['item']
 
 class OrderForm(forms.ModelForm):
     class Meta:
