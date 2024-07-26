@@ -1,10 +1,12 @@
 # user/views.py
 
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm, UserUpdateForm, ProfileUpdateForm
+from .models import User
 from django.contrib.auth.decorators import login_required
 
+#=============================Register================================
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -16,6 +18,7 @@ def register(request):
         form = CustomUserCreationForm()
     return render(request, 'user/register.html', {'form': form})
 
+#=============================Profile=================================
 @login_required
 def profile(request):
     user = request.user
@@ -40,3 +43,46 @@ def profile_update(request):
     }
 
     return render(request, 'user/profile_update.html', context)
+
+#============================Operators================================
+@login_required
+def operators(request):
+    user = User.objects.all()
+    context = {'user': user}
+    return render(request, 'main/operators/index.html', context)
+
+@login_required
+def create_operator(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-operators')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'main/operators/create_operator.html', {'form': form})
+
+@login_required
+def delete_operator(request, id):
+    operator = User.objects.get(id=id)
+    if request.method == 'POST':
+        operator.delete()
+        return redirect ('dashboard-operators')
+    
+    return render(request, 'main/operators/delete_operator.html', {'operator': operator})
+
+@login_required
+def update_operator(request, id):
+    operator = get_object_or_404(User, id=id)
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST, instance=operator)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-operators')
+    else:
+        form = CustomUserCreationForm(instance=operator)
+    context = {
+        'form': 'form',
+        'operator': 'operator'
+    }
+    return render(request, 'main/operators/update_operator.html', context)

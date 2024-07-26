@@ -19,17 +19,20 @@
                         <th class="col text-center">Nome</th>
                         <th class="col text-center">Email</th>
                         <th class="col text-center">Crachá</th>
+                        <th class="col text-center">Setor</th>
                         <th class="col text-center">Cargo</th>
                         <th class="col text-center">Editar</th>
                         <th class="col text-center">Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for user in user %}
                         <tr>
-                            <td class="col text-center">*****</td>
-                            <td class="col text-center">*****</td>
-                            <td class="col text-center">*****</td>
-                            <td class="col text-center">*****</td>
+                            <td class="col text-center">{{user.username}}</td>
+                            <td class="col text-center">{{user.email}}</td>
+                            <td class="col text-center">{{user.badge | default_if_none:""}}</td>
+                            <td class="col text-center">{{user.sector | default_if_none:""}}</td>
+                            <td class="col text-center">{{user.ranking | default_if_none:""}}</td>
                             <td class="col text-center">
                                 <a class="btn btn-sm mr-2" href="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#43A5FF" class="bi bi-eye" viewBox="0 0 16 16">
@@ -47,6 +50,7 @@
                                 </a>
                             </td>
                         </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

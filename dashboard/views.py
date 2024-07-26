@@ -15,12 +15,6 @@ def index(request):
 def dashboard(request):
     return render(request, 'main/dashboard/index.html')
 
-#========================Operators==============================
-
-@login_required
-def operators(request):
-    return render(request, 'main/operators/index.html')
-
 #========================Staffs==============================
 
 @login_required
