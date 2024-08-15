@@ -2,7 +2,7 @@
 
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login
-from .forms import CustomUserCreationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import CustomUserCreationForm, UserUpdateForm, ProfileUpdateForm, CustomUserUpdateForm
 from .models import User
 from django.contrib.auth.decorators import login_required
 
@@ -75,14 +75,14 @@ def delete_operator(request, id):
 def update_operator(request, id):
     operator = get_object_or_404(User, id=id)
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST, instance=operator)
+        form = CustomUserUpdateForm(request.POST, instance=operator)
         if form.is_valid():
             form.save()
             return redirect('dashboard-operators')
     else:
-        form = CustomUserCreationForm(instance=operator)
+        form = CustomUserUpdateForm(instance=operator)
     context = {
-        'form': 'form',
-        'operator': 'operator'
+        'form': form,
+        'operator': operator
     }
     return render(request, 'main/operators/update_operator.html', context)
