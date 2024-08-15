@@ -1,0 +1,13 @@
+{% extends 'partials/base.html' %}
+{% block title %} Adicionar Operador {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card card-body">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-success btn-block" type="submit" value="Adicionar">
+    </form>
+</div>
+{% endblock %}

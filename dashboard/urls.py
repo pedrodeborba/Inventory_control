@@ -7,9 +7,9 @@ urlpatterns = [
     path('dashboard', views.dashboard, name='dashboard-index'),
      #========================================================Users=======================================
     path('operators/', user_views.operators, name='dashboard-operators'),
-    path('equipments/create/', user_views.create_operator, name='dashboard-create-operator'),
-    path('equipments/delete/<int:id>/', user_views.delete_operator, name='dashboard-delete-operator'),
-    path('equipments/update/<int:id>/', user_views.update_operator, name='dashboard-update-operator'),
+    path('operators/create/', user_views.create_operator, name='dashboard-create-operator'),
+    path('operators/delete/<int:id>/', user_views.delete_operator, name='dashboard-delete-operator'),
+    path('operators/update/<int:id>/', user_views.update_operator, name='dashboard-update-operator'),
     #========================Staffs==============================
     path('staffs/', views.staffs, name='dashboard-staffs'),
     path('staffs/create/', views.create_staff, name='dashboard-create-staff'),
