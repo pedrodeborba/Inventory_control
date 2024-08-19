@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import EquipmentForm, StaffForm, ItemForm, OrderForm, LoanForm
 from .models import Equipment, Staff, Item, Order, Loan
 from django.conf import settings
+from django.http import JsonResponse
+from django.db.models import Count
 #=============================Index=================================
 @login_required
 def index(request):
@@ -14,6 +16,37 @@ def index(request):
 @login_required
 def dashboard(request):
     return render(request, 'main/dashboard/index.html')
+
+#========================Graphics============================
+
+def chart_data(request):
+    # Dados para o gráfico de pizza
+    equipment_data = Equipment.objects.values('item__item').annotate(count=Count('id')).order_by('item__item')
+    print(equipment_data)  # Adicione esta linha para verificar os dados
+    labels = [data['item__item'] for data in equipment_data]
+    data = [data['count'] for data in equipment_data]
+    
+    pie_chart_data = {
+        'labels': labels,
+        'data': data
+    }
+
+    # Dados para o gráfico de barras
+    orders_data = Order.objects.values('date__week_day').annotate(count=Count('id')).order_by('date__week_day')
+    print(orders_data)  # Adicione esta linha para verificar os dados
+    days_of_week = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom']
+    bar_labels = days_of_week[:len(orders_data)]
+    bar_data = [data['count'] for data in orders_data]
+
+    bar_chart_data = {
+        'labels': bar_labels,
+        'data': bar_data
+    }
+
+    return JsonResponse({
+        'pie_chart_data': pie_chart_data,
+        'bar_chart_data': bar_chart_data
+    })
 
 #========================Staffs==============================
 

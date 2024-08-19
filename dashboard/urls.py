@@ -4,7 +4,8 @@ from user import views as user_views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('dashboard', views.dashboard, name='dashboard-index'),
+    path('dashboard/', views.dashboard, name='dashboard-index'),
+    path('dashboard/chart-data/', views.chart_data, name='chart-data'),
      #========================================================Users=======================================
     path('operators/', user_views.operators, name='dashboard-operators'),
     path('operators/create/', user_views.create_operator, name='dashboard-create-operator'),
