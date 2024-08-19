@@ -5,7 +5,7 @@ class EquipmentForm(forms.ModelForm):
     class Meta:
         model = Equipment
         fields = [
-            'item', 'model', 'manufacturer', 'maq', 'patrimony', 'sn_pn', 
+            'item', 'model', 'current_user','manufacturer', 'maq', 'patrimony', 'sn_pn', 
             'cost_center', 'express_code', 'immobilized', 'nf', 'nf_date', 
             'information', 'sector', 'supplier'
         ]

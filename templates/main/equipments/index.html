@@ -32,17 +32,17 @@
                 <tbody>
                     {% for equipment in equipment %}
                         <tr>
-                            <td class="col text-center">{{ equipment.item }}</td>
+                            <td class="col text-center">{{ equipment.item|default_if_none:"" }}</td>
                             <td class="col text-center">{{ equipment.model|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.maq }}</td>
-                            <td class="col text-center">{{ equipment.patrimony }}</td>
-                            <td class="col text-center">{{ equipment.sn_pn }}</td>
-                            <td class="col text-center">{{ equipment.cost_center }}</td>
-                            <td class="col text-center">{{ equipment.express_code }}</td>
-                            <td class="col text-center">{{ equipment.immobilized }}</td>
-                            <td class="col text-center">{{ equipment.nf }}</td>
+                            <td class="col text-center">{{ equipment.maq|default_if_none:"" }}</td>
+                            <td class="col text-center">{{ equipment.patrimony|default_if_none:"" }}</td>
+                            <td class="col text-center">{{ equipment.sn_pn|default_if_none:"" }}</td>
+                            <td class="col text-center">{{ equipment.cost_center|default_if_none:"" }}</td>
+                            <td class="col text-center">{{ equipment.express_code|default_if_none:"" }}</td>
+                            <td class="col text-center">{{ equipment.immobilized|default_if_none:"" }}</td>
+                            <td class="col text-center">{{ equipment.nf|default_if_none:"" }}</td>
                             <td class="col text-center">{{ equipment.nf_date|date:"d/m/Y" }}</td>
-                            <td class="col text-center">{{ equipment.sector }}</td>
+                            <td class="col text-center">{{ equipment.sector|default_if_none:"" }}</td>
                             <td class="col text-center">
                                 <a class="btn btn-sm mr-2" href="{% url 'dashboard-update-equipment' equipment.id %}">
                                     <i class="bi bi-pencil"></i>

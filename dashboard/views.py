@@ -207,6 +207,18 @@ def update_order(request, id):
     }
     return render(request, 'main/orders/update_order.html', context)
 
+def process_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    equipment = order.equipment
+    
+    if order.movimentation == Order.EXIT:
+        # Se for uma saída, atualiza o equipamento com o funcionário atual
+        equipment.current_user = order.staff
+    elif order.movimentation == Order.ENTRY:
+        # Se for uma entrada, o responsável volta a ser o 'Estoque da TI'
+        equipment.current_user = None  # ou se tiver um usuário específico para o estoque, defina aqui
+
+    equipment.save()
 
 #========================Loans==============================
 @login_required

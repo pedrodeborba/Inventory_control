@@ -3,11 +3,6 @@ from django.conf import settings
 import pytz
 from django.utils import timezone
 
-MOVIMENTATION = (
-    ('Entrada', 'Entrada'),
-    ('Saída', 'Saída')
-)
-
 BRANCH = (
     ('Matriz (01)', 'Matriz (01)'),
     ('Parobé (04)', 'Parobé (04)'),
@@ -45,6 +40,7 @@ class Item(models.Model):
 class Equipment(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
     model = models.CharField('Modelo', max_length=255, blank=True, null=True)
+    current_user = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True, blank=True, related_name='current_equipment') #Reponsável pelo equipamento
     manufacturer = models.CharField('Fabricante', max_length=255, blank=True, null=True)
     maq = models.IntegerField('Maq', null=True, blank=True)
     patrimony = models.IntegerField('Patrimônio', blank=True, null=True, unique=True)
@@ -59,16 +55,29 @@ class Equipment(models.Model):
     supplier = models.CharField('Fornecedor', max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return (
-            f"{self.item or '[Nome não especificado]'}, "
-            f"{self.model or '[Modelo não especificado]'}, "
-            f"MAQ:{self.maq or '[Maq não especificado]'}, "
-            f"Patrimônio:{self.patrimony or '[Patrimônio não especificado],'} "
-            f"SN/PN:{self.sn_pn or '[SN/PN não especificado]'}"
-        )
+        parts = [
+            f"{self.item or '[Nome não especificado]'}",
+            f"{self.model or '[Modelo não especificado]'}",
+        ]
+        
+        if self.maq:
+            parts.append(f"MAQ: {self.maq}")
+        if self.patrimony:
+            parts.append(f"Patrimônio: {self.patrimony}")
+        if self.sn_pn:
+            parts.append(f"SN/PN: {self.sn_pn}")
+        
+        return ", ".join(parts)
 
 # Ordens
 class Order(models.Model):
+    ENTRY = 'E'
+    EXIT = 'S'
+    MOVIMENTATION = (
+        (ENTRY, 'Entrada'),
+        (EXIT, 'Saída')
+    )
+    
     num_called = models.IntegerField()
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, null=True)
     information = models.CharField(max_length=255, blank=True, null=True)
@@ -79,7 +88,7 @@ class Order(models.Model):
     operator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     patrimony = models.CharField(max_length=6, blank=True, null=True, unique=True)
     maq = models.IntegerField(null=True, blank=True)
-    movimentation = models.CharField(max_length=10, blank=False, choices=MOVIMENTATION)
+    movimentation = models.CharField(max_length=1, blank=False, choices=MOVIMENTATION)
 
     def __str__(self):
         return f'{self.equipment} solicitado por {self.staff.username}'
@@ -91,6 +100,14 @@ class Order(models.Model):
         local_date = self.date.astimezone(brasilia_tz)
         # Formata a data para dd/mm/yyyy às HH:MM
         return local_date.strftime('%d/%m/%Y às %H:%M')
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.movimentation == self.EXIT:
+            self.equipment.current_user = self.staff
+        elif self.movimentation == self.ENTRY:
+            self.equipment.current_user = None
+        self.equipment.save()
 
 
 class Loan(models.Model):
