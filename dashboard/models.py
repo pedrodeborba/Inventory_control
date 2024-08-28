@@ -18,7 +18,7 @@ class Sector(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-# Operadores
+# Funcionários
 class Staff(models.Model):
     username = models.CharField(max_length=100, null=True)
     email = models.EmailField(max_length=254, null=True)
