@@ -130,7 +130,7 @@ $(function () {
       // =====================================
       // Empréstimo
       // =====================================
-      
+
       // Total de empréstimos
       const totalLoans = response.loan_chart.loan_totals.reduce((a, b) => a + b, 0);
       document.getElementById('total-loans').textContent = totalLoans;
@@ -138,10 +138,16 @@ $(function () {
       // Percentual de crescimento do último mês
       const totalLoansThisMonth = response.loan_chart.loan_totals.slice(-1)[0] || 0;
       const totalLoansLastMonth = response.loan_chart.loan_totals.slice(-2, -1)[0] || 0;
-      const growthPercentage = totalLoansLastMonth > 0
+      let growthPercentage = totalLoansLastMonth > 0
         ? ((totalLoansThisMonth - totalLoansLastMonth) / totalLoansLastMonth) * 100
         : 0;
-      document.getElementById('growth-percentage').textContent = `${growthPercentage.toFixed(2)}%`;
+
+      // Adiciona o sinal de "+" ou "-" dependendo do valor do crescimento
+      let growthSign = growthPercentage > 0 ? '+' : growthPercentage < 0 ? '-' : '';
+      growthPercentage = Math.abs(growthPercentage);  // Remove o sinal negativo para formatar corretamente
+
+      // Exibe o valor formatado no HTML
+      document.getElementById('growth-percentage').textContent = `${growthSign}${growthPercentage.toFixed(2)}% Último mês`;
 
       const loanTotals = response.loan_chart.loan_totals.map(total => Math.round(total));
 

@@ -60,7 +60,7 @@
                                         <i class="ti ti-arrow-down-right text-danger"></i>
                                     </span>
                                     <p id="growth-percentage" class="text-dark me-1 fs-3 mb-0">0%</p>
-                                    <p class="fs-3 mb-0">Último mês</p>
+                                    <p class="fs-3 mb-0"></p>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -82,63 +82,33 @@
     <div class="col-lg-4 d-flex align-items-stretch">
         <div class="card w-100">
             <div class="card-body p-4">
-                <div class="mb-4">
-                    <h5 class="card-title fw-semibold">Recent Transactions</h5>
+                <div class="mb-4 text-center">
+                    <h5 class="card-title fw-semibold">Movimentações recentes</h5>
                 </div>
                 <ul class="timeline-widget mb-0 position-relative mb-n5">
-                    <li class="timeline-item d-flex position-relative overflow-hidden">
-                        <div class="timeline-time text-dark flex-shrink-0 text-end">09:30</div>
+                    {% for order in orders %}
+                    {% if order.movimentation == "E" %}
+                    <li class="timeline-item d-flex justify-content-center align-items-center overflow-hidden">
+                        <div class="timeline-time text-dark flex-shrink-0 text-end">{{ order.date_formatted }}</div>
                         <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                            <span class="timeline-badge border-2 border border-primary flex-shrink-0 my-8"></span>
+                            <span class="timeline-badge border-2 border border-success flex-shrink-0 my-8"></span>
                             <span class="timeline-badge-border d-block flex-shrink-0"></span>
                         </div>
-                        <div class="timeline-desc fs-3 text-dark mt-n1">Payment received from John Doe of $385.90
-                        </div>
+                        <div class="timeline-desc fs-3 text-dark mt-n1">Entrada de {{ order.equipment.item }}</div>
                     </li>
-                    <li class="timeline-item d-flex position-relative overflow-hidden">
-                        <div class="timeline-time text-dark flex-shrink-0 text-end">10:00 am</div>
+                    {% else %}
+                    <li class="timeline-item d-flex justify-content-center align-items-center position-relative overflow-hidden">
+                        <div class="timeline-time text-dark flex-shrink-0 text-end">{{ order.date_formatted }}</div>
                         <div class="timeline-badge-wrap d-flex flex-column align-items-center">
                             <span class="timeline-badge border-2 border border-info flex-shrink-0 my-8"></span>
                             <span class="timeline-badge-border d-block flex-shrink-0"></span>
                         </div>
-                        <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">New sale recorded <a
-                                href="javascript:void(0)" class="text-primary d-block fw-normal">#ML-3467</a>
-                        </div>
+                        <div class="timeline-desc fs-3 text-dark mt-n1">Retirada de {{ order.equipment.item }}</div>
                     </li>
-                    <li class="timeline-item d-flex position-relative overflow-hidden">
-                        <div class="timeline-time text-dark flex-shrink-0 text-end">12:00 am</div>
-                        <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                            <span class="timeline-badge border-2 border border-success flex-shrink-0 my-8"></span>
-                            <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                        </div>
-                        <div class="timeline-desc fs-3 text-dark mt-n1">Payment was made of $64.95 to Michael</div>
-                    </li>
-                    <li class="timeline-item d-flex position-relative overflow-hidden">
-                        <div class="timeline-time text-dark flex-shrink-0 text-end">09:30 am</div>
-                        <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                            <span class="timeline-badge border-2 border border-warning flex-shrink-0 my-8"></span>
-                            <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                        </div>
-                        <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">New sale recorded <a
-                                href="javascript:void(0)" class="text-primary d-block fw-normal">#ML-3467</a>
-                        </div>
-                    </li>
-                    <li class="timeline-item d-flex position-relative overflow-hidden">
-                        <div class="timeline-time text-dark flex-shrink-0 text-end">09:30 am</div>
-                        <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                            <span class="timeline-badge border-2 border border-danger flex-shrink-0 my-8"></span>
-                            <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                        </div>
-                        <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">New arrival recorded
-                        </div>
-                    </li>
-                    <li class="timeline-item d-flex position-relative overflow-hidden">
-                        <div class="timeline-time text-dark flex-shrink-0 text-end">12:00 am</div>
-                        <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                            <span class="timeline-badge border-2 border border-success flex-shrink-0 my-8"></span>
-                        </div>
-                        <div class="timeline-desc fs-3 text-dark mt-n1">Payment Done</div>
-                    </li>
+                    {% endif %}
+                    {% empty %}
+                    <li>Não há ordens registradas.</li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>

@@ -18,9 +18,26 @@ def index(request):
 def dashboard(request):
     #Enviando o total de Funcionários
     total_staffs = Staff.objects.count()
+    
+    # Horário das orderns para o quarto gráfico
+    orders = Order.objects.order_by('-views')[:5]
+    formatted_orders = [
+        {
+            'date_formatted': order.date.strftime('%d/%m/%y às %H:%M'),
+            'movimentation': order.movimentation,
+            'equipment': order.equipment,
+        }
+        for order in orders
+    ]
+    
     context = {
-        'total_staffs': total_staffs
+        #staffs
+        'total_staffs': total_staffs,
+        
+        #orders
+        'orders': formatted_orders,
     }
+    
     return render(request, 'main/dashboard/index.html', context)
 
 #========================Graphics============================
