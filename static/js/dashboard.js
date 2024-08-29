@@ -130,17 +130,20 @@ $(function () {
       // =====================================
       // Empréstimo
       // =====================================
-      // Atualize o número total de empréstimos
+      
+      // Total de empréstimos
       const totalLoans = response.loan_chart.loan_totals.reduce((a, b) => a + b, 0);
       document.getElementById('total-loans').textContent = totalLoans;
 
-      // Calcule e atualize o percentual de crescimento do último mês
+      // Percentual de crescimento do último mês
       const totalLoansThisMonth = response.loan_chart.loan_totals.slice(-1)[0] || 0;
       const totalLoansLastMonth = response.loan_chart.loan_totals.slice(-2, -1)[0] || 0;
       const growthPercentage = totalLoansLastMonth > 0
-          ? ((totalLoansThisMonth - totalLoansLastMonth) / totalLoansLastMonth) * 100
-          : 0;
+        ? ((totalLoansThisMonth - totalLoansLastMonth) / totalLoansLastMonth) * 100
+        : 0;
       document.getElementById('growth-percentage').textContent = `${growthPercentage.toFixed(2)}%`;
+
+      const loanTotals = response.loan_chart.loan_totals.map(total => Math.round(total));
 
       // Configuração do gráfico
       var loan = {
@@ -157,7 +160,7 @@ $(function () {
           {
             name: "Empréstimos",
             color: "#49BEFF",
-            data: response.loan_chart.loan_totals,
+            data: loanTotals,  // Usando os totais de empréstimos
           },
         ],
         stroke: { curve: "smooth", width: 2 },
@@ -166,9 +169,17 @@ $(function () {
         tooltip: {
           theme: "dark",
           fixed: { enabled: true, position: "right" },
-          x: { show: false },
+          x: { show: true },
         },
+        xaxis: {
+          categories: response.loan_chart.loan_dates,  // Usando as datas de retirada
+          labels: {
+            style: { cssClass: "grey--text lighten-2--text fill-color" },
+            format: 'dd/MM/yyyy'
+          },
+        }
       };
+
       new ApexCharts(document.querySelector("#loan-chart"), loan).render();
     },
     error: function (error) {

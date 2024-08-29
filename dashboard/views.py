@@ -94,13 +94,14 @@ def chart_data(request):
     # Gráfico de empréstimos
     # ======================
     loans_by_date = Loan.objects.values('retreat_date').annotate(total_loans=Count('id')).order_by('retreat_date')
+   
     loans_by_month = Loan.objects.annotate(month=TruncMonth('retreat_date')).values('month').annotate(total_loans=Count('id')).order_by('month')
     
-    loan_dates = [loan['retreat_date'].strftime('%d/%m') for loan in loans_by_date]
+    loan_dates = [loan['retreat_date'].strftime('%d/%m') for loan in loans_by_date if loan['retreat_date'] is not None]
     loan_totals = [loan['total_loans'] for loan in loans_by_date]
     
     loan_data_by_month = {
-        'loan_labels': [loan['month'].strftime('%B %Y') for loan in loans_by_month],
+        'loan_labels': [loan['month'].strftime('%B %Y') for loan in loans_by_month if loan['month'] is not None],
         'loan_data': [loan['total_loans'] for loan in loans_by_month],
     }
     
