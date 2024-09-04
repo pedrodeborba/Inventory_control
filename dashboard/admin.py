@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import Staff, Equipment, Order, Item, Sector, Loan
+from .models import Staff, Equipment, Order, Item, Sector, Loan, Card
 
 admin.site.site_header = 'TI - Usaflex'
 
@@ -25,6 +25,9 @@ class OrderAdm(admin.ModelAdmin):
 
 class LoanAdm(admin.ModelAdmin):
     list_display = ('quantity', 'equipment', 'staff', 'patrimony', 'maq', 'retreat_date', 'devolution_date')
+    
+class CardAdm(admin.ModelAdmin):
+    list_display = ('title', 'subtitle', 'link')
 
 # Register your models here
 admin.site.unregister(Group)
@@ -34,3 +37,4 @@ admin.site.register(Order, OrderAdm)
 admin.site.register(Item)
 admin.site.register(Sector)
 admin.site.register(Loan, LoanAdm)
+admin.site.register(Card, CardAdm)

@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import EquipmentForm, StaffForm, ItemForm, OrderForm, LoanForm
-from .models import Equipment, Staff, Item, Order, Loan
+from .models import Equipment, Staff, Item, Order, Loan, Card
 from django.conf import settings
 from django.http import JsonResponse
 from django.db.models import Count
@@ -16,6 +16,9 @@ def index(request):
 
 @login_required
 def dashboard(request):
+    # Cards
+    cards = Card.objects.all()
+    
     #Enviando o total de Funcionários
     total_staffs = Staff.objects.count()
     
@@ -31,6 +34,9 @@ def dashboard(request):
     ]
     
     context = {
+        #cards
+        'cards': cards,
+        
         #staffs
         'total_staffs': total_staffs,
         

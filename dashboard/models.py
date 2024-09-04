@@ -110,7 +110,6 @@ class Order(models.Model):
             self.equipment.current_user = None
         self.equipment.save()
 
-
 class Loan(models.Model):
     quantity = models.IntegerField()
     equipment = models.ForeignKey(Equipment, models.CASCADE, null=True)
@@ -128,3 +127,12 @@ class Loan(models.Model):
 
     def __str__(self):
         return f'Empréstimo de {self.equipment} solicitado por {self.staff.username}'
+    
+class Card(models.Model):
+    title = models.CharField('Título', max_length=99, blank=True)
+    subtitle = models.CharField('Subtítulo', max_length=99, blank=True)
+    image = models.ImageField('Imagem', upload_to='cards/images/', blank=True, null=True)
+    link = models.CharField('Levar para', max_length=255, blank=True, null=True)
+    
+    def __str__(self):
+        return self.title or self.subtitle or "Sem título ou subtítulo"
