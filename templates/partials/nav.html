@@ -13,27 +13,27 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Visualizar
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="{% url 'dashboard-operators' %}" class="btn btn-info w-100 mb-2">Operadores</a>
+                <a href="{% url 'dashboard-operators' %}" class="nav-link active nav-padding">Operadores</a>
               </li>
               <li>
-                <a href="{% url 'dashboard-staffs' %}" class="btn btn-info w-100 mb-2">Funcionários</a>
+                <a href="{% url 'dashboard-staffs' %}" class="nav-link active nav-padding">Funcionários</a>
               </li>
               <li>
-                <a href="{% url 'dashboard-equipments' %}" class="btn btn-info w-100 mb-2">Equipamentos</a>
+                <a href="{% url 'dashboard-equipments' %}" class="nav-link active nav-padding">Equipamentos</a>
               </li>
               <li>
-                <a href="{% url 'dashboard-orders' %}" class="btn btn-info w-100 mb-2">Ordens</a>
+                <a href="{% url 'dashboard-orders' %}" class="nav-link active nav-padding">Ordens</a>
               </li>
               <li>
-                <a href="{% url 'dashboard-items' %}" class="btn btn-info w-100 mb-2">Itens</a>
+                <a href="{% url 'dashboard-items' %}" class="nav-link active nav-padding">Itens</a>
               </li>
               <li>
-                <a href="{% url 'dashboard-loans' %}" class="btn btn-info w-100 mb-2">Empréstimos</a>
+                <a href="{% url 'dashboard-loans' %}" class="nav-link active nav-padding">Empréstimos</a>
               </li>
             </ul>
           </li>
@@ -43,7 +43,7 @@
             </a>
             <ul class="dropdown-menu">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'user-profile' %}" style="padding-left: 10px;">Perfil</a>
+                <a class="nav-link active nav-padding" aria-current="page" href="{% url 'user-profile' %}">Perfil</a>
               </li>
               <li>
                 <form action="{% url 'user-logout' %}" method="post">

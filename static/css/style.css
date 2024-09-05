@@ -13,6 +13,26 @@ nav{
     color: white;
 }
 
+a.nav-link{
+    color: #fff;
+}
+
+a.nav-link:hover{
+    color: black;
+    text-transform: none;
+    text-decoration: none;
+}
+
+a.nav-padding{
+    padding-left: 10px;
+}
+
+.offcanvas-body{
+    background-image: url('/static/images/backgrounds/bg-nav-offcanvas-body.jpg');
+    background-repeat: no-repeat;
+    background-size: 280%;
+}
+
 .my-card:hover{
     transform: scale(1.1);
     transition: 0.2 ease-in-out;
