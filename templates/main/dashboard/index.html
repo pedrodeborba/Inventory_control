@@ -56,7 +56,8 @@
                                 <h5 class="card-title mb-9 fw-semibold"> Empréstimos </h5>
                                 <h4 id="total-loans" class="fw-semibold mb-3">0</h4>
                                 <div class="d-flex align-items-center pb-1">
-                                    <span class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
+                                    <span
+                                        class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
                                         <i class="ti ti-arrow-down-right text-danger"></i>
                                     </span>
                                     <p id="growth-percentage" class="text-dark me-1 fs-3 mb-0">0%</p>
@@ -65,7 +66,8 @@
                             </div>
                             <div class="col-4">
                                 <div class="d-flex justify-content-end">
-                                    <div class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                                    <div
+                                        class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
                                         <i class="ti ti-currency-dollar fs-6"></i>
                                     </div>
                                 </div>
@@ -74,7 +76,7 @@
                     </div>
                     <div id="loan-chart"></div>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 </div>
@@ -97,7 +99,8 @@
                         <div class="timeline-desc fs-3 text-dark mt-n1">Entrada de {{ order.equipment.item }}</div>
                     </li>
                     {% else %}
-                    <li class="timeline-item d-flex justify-content-center align-items-center position-relative overflow-hidden">
+                    <li
+                        class="timeline-item d-flex justify-content-center align-items-center position-relative overflow-hidden">
                         <div class="timeline-time text-dark flex-shrink-0 text-end">{{ order.date_formatted }}</div>
                         <div class="timeline-badge-wrap d-flex flex-column align-items-center">
                             <span class="timeline-badge border-2 border border-info flex-shrink-0 my-8"></span>
@@ -227,24 +230,50 @@
     </div>
 </div>
 <div class="row">
-    {% if cards %}
-    {% for card in cards %}
-    <div class="col-sm-6 col-xl-3">
-        <div class="card overflow-hidden rounded-2">
-            <div class="position-relative">
-                <a href="javascript:void(0)"><img src="{{ card.image.url }}"
-                        class="card-img-top rounded-0" alt="{{ card.title }}"></a>
-            </div>
-            <div class="card-body pt-3 p-4">
-                <h6 class="fw-semibold fs-4">{{ card.title }}</h6>
-                <div class="d-flex align-items-center justify-content-between">
-                    <h6 class="fw-semibold fs-2 mb-0">{{ card.subtitle }}</h6>
-                </div>
-            </div>
+    <div id="multiCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% if cards %}
+            {% for card in cards %}
+            {% if forloop.counter0|divisibleby:4 %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="row">
+                    {% endif %}
+
+                    <div class="col-md-3">
+                        <a href="{% if card.link %}{{ card.link }}{% endif %}" target="_blank">
+                            <div class="card overflow-hidden rounded-2">
+                                <div class="position-relative">
+                                    <img src="{{ card.image.url }}" class="card-img-top rounded-0"
+                                        alt="{{ card.title }}">
+                                </div>
+                                <div class="card-body pt-3 p-4">
+                                    <h6 class="fw-semibold fs-4">{{ card.title }}</h6>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="fw-semibold fs-2 mb-0">{{ card.subtitle }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    {% if forloop.counter|divisibleby:4 or forloop.last %}
+                </div> <!-- row -->
+            </div> <!-- carousel-item -->
+            {% endif %}
+            {% endfor %}
+            {% endif %}
         </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#multiCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#multiCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    {% endfor %}
-    {% endif %}
 </div>
 <div class="row ">
     <div class="col-md-2"></div>
