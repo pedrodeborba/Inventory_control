@@ -1,30 +1,39 @@
 {% extends 'partials/base.html' %}
 {% block title %}Profile Page{% endblock %}
 
+{% block extra_styles %}
+<style>
+    body {
+        width: 100%;
+        height: 100%;
+        background-image: url('/static/images/backgrounds/ice-montain.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="row my-4">
-    <div class="col-md-4"></div>
+<div class="row mt-5 d-flex justify-content-center align-items-center">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header bg-info text-white">
-                Profile Information
-            </div>
-            <button>
-                <a href="{% url 'user-profile-update' %}">
-                    Edit
+            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                <span>Perfil de usuário</span>
+                <a href="{% url 'user-profile-update' %}" class="btn btn-light btn-sm text-info">
+                    Editar
                 </a>
-            </button>
+            </div>
             <div class="row p-3">
                 <div class="col-md-8">
                     <table class="table table-borderless">
                         <thead>
                             <tr>
-                                <th colspan="2">Profile Information</th>
+                                <th colspan="2">Informações de Perfil</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">Username</th>
+                                <th scope="row">Usuário</th>
                                 <td>{{ user.username }}</td>
                             </tr>
                             <tr>
@@ -32,21 +41,21 @@
                                 <td>{{ user.email }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Badge</th>
-                                <td>{{ user.badge }}</td>
+                                <th scope="row">Crachá</th>
+                                <td>{{ user.badge|default:"Crachá não registrado" }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Sector</th>
-                                <td>{{ user.sector }}</td>
+                                <th scope="row">Setor</th>
+                                <td>{{ user.sector|default:"Setor não registrado" }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Ranking</th>
-                                <td>{{ user.ranking }}</td>
+                                <th scope="row">Cargo</th>
+                                <td>{{ user.ranking|default:"Cargo não registrado" }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 d-flex align-items-center justify-content-center">
                     <img class="img-thumbnail" src="{{ user.profile.image.url }}" alt="profile-image">
                 </div>
             </div>

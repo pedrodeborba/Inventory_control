@@ -2,28 +2,38 @@
 {% load crispy_forms_tags %}
 {% block title %}Update Profile{% endblock %}
 
+{% block extra_styles %}
+<style>
+    body {
+        width: 100%;
+        height: 100%;
+        background-image: url('/static/images/backgrounds/ice-montain.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="row my-4">
-    <div class="col-md-4"></div>
-    <div class="col-md-8">
+<div class="row mt-4 d-flex justify-content-center align-items-center">
+    <div class="col-md-4">
         <div class="card">
             <div class="card-header bg-info text-white">
-                Update Profile
+                Atualizando Perfil...
             </div>
             <div class="row p-3">
-                <div class="col-md-8">
+                <div class="col-md">
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <fieldset class="form-group">
-                            <legend class="border-bottom mb-4">User Info</legend>
+                            <legend class="border-bottom mb-4">Informações do Usuário</legend>
                             {{ u_form|crispy }}
                         </fieldset>
-                        <fieldset class="form-group">
-                            <legend class="border-bottom mb-4">Profile Info</legend>
+                        <fieldset class="form-group mt-1">
                             {{ p_form|crispy }}
                         </fieldset>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-outline-info">Update</button>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-outline-info">Salvar</button>
                         </div>
                     </form>
                 </div>

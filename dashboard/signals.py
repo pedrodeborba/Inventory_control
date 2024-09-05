@@ -35,3 +35,4 @@ def delete_image_on_change(sender, instance, **kwargs):
         if old_instance.image and old_instance.image != instance.image:
             print(f"Tentando deletar a imagem antiga: {old_instance.image.path}")
             remove_image(old_instance.image.path)
+            

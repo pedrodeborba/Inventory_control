@@ -28,7 +28,7 @@ a.nav-padding{
 }
 
 .offcanvas-body{
-    background-image: url('/static/images/backgrounds/bg-nav-offcanvas-body.jpg');
+    background-image: url('/static/images/backgrounds/ice-montain.jpg');
     background-repeat: no-repeat;
     background-size: 280%;
 }
@@ -36,4 +36,8 @@ a.nav-padding{
 .my-card:hover{
     transform: scale(1.1);
     transition: 0.2 ease-in-out;
+}
+
+img.img-thumbnail{
+    border-radius: 999%;
 }
