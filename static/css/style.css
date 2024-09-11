@@ -8,11 +8,6 @@ body{
     background-color: #EAEAEA;
 }
 
-nav{
-    background-color: #43A5FF;
-    color: white;
-}
-
 a.nav-link{
     color: #fff;
 }
@@ -40,4 +35,8 @@ a.nav-padding{
 
 img.img-thumbnail{
     border-radius: 999%;
+}
+
+.bi{
+    color: black;
 }
