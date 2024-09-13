@@ -216,10 +216,16 @@ body{
 
 .sidebar-nav ul .sidebar-item.selected>.sidebar-link,
 .sidebar-nav ul .sidebar-item.selected>.sidebar-link.active,
-.sidebar-nav ul .sidebar-item>.sidebar-link.active {
+.sidebar-nav ul .sidebar-item>.sidebar-link.active
+{
     background-color: #5D87FF;
     color: #fff
 }
+
+.sidebar-link.active .icons {
+    color: #fff;
+}
+
 
 .sidebar-nav .sidebar-list .sidebar-list-item {
     padding: 8px 0

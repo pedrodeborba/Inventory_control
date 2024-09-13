@@ -24,6 +24,7 @@ class OrderAdm(admin.ModelAdmin):
     list_filter = ['equipment', 'staff', 'date', 'sector', 'operator', 'movimentation'] 
 
 class LoanAdm(admin.ModelAdmin):
+    exclude = ('views',)
     list_display = ('quantity', 'equipment', 'staff', 'patrimony', 'maq', 'retreat_date', 'devolution_date')
     
 class CardAdm(admin.ModelAdmin):

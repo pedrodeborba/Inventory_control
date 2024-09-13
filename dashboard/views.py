@@ -33,6 +33,21 @@ def dashboard(request):
         for order in orders
     ]
     
+    # Loans
+    loans = Loan.objects.order_by('-views')[:5]
+    formatted_loans = [
+        {
+            'retreat_date': loan.retreat_date.strftime('%d/%m/%y'),
+            'devolution_date': loan.devolution_date.strftime('%d/%m/%y'),
+            'id': loan.id,
+            'staff': loan.staff,
+            'staff_sector': loan.staff.sector,
+            'equipment_item': loan.equipment.item,
+            'equipment_model': loan.equipment.model
+        }
+        for loan in loans
+    ]
+    
     context = {
         #cards
         'cards': cards,
@@ -42,6 +57,9 @@ def dashboard(request):
         
         #orders
         'orders': formatted_orders,
+        
+        #loans
+        'loans': formatted_loans,
     }
     
     return render(request, 'main/dashboard/index.html', context)

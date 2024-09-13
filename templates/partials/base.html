@@ -58,7 +58,7 @@
                             <a class="sidebar-link {% if request.path == '/' %}active{% endif %}" href="{% url 'dashboard-index' %}"
                                 aria-expanded="false">
                                 <span>
-                                    <i class="bi bi-columns-gap text-white"></i>
+                                    <i class="bi bi-columns-gap icons"></i>
                                 </span>
                                 <span class="hide-menu">Dashboard</span>
                             </a>
@@ -68,18 +68,18 @@
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link {% if request.path == '/orders/' %}active{% endif %}"
-                                href="{% url 'dashboard-orders' %}" aria-expanded="false">
+                               href="{% url 'dashboard-orders' %}" aria-expanded="false">
                                 <span>
-                                    <i class="bi bi-card-text"></i>
+                                    <i class="bi bi-card-text icons"></i>
                                 </span>
                                 <span class="hide-menu">Ordens</span>
                             </a>
-                        </li>
+                        </li>                        
                         <li class="sidebar-item">
                             <a class="sidebar-link {% if request.path == '/items/' %}active{% endif %}" href="{% url 'dashboard-items' %}"
                                 aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-alert-circle"></i>
+                                    <i class="bi bi-box icons"></i>
                                 </span>
                                 <span class="hide-menu">Itens</span>
                             </a>
@@ -88,18 +88,47 @@
                             <a class="sidebar-link {% if request.path == '/equipments/' %}active{% endif %}" href="{% url 'dashboard-equipments' %}"
                                 aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-alert-circle"></i>
+                                    <i class="bi bi-mouse2 icons"></i>
                                 </span>
                                 <span class="hide-menu">Equipamentos</span>
                             </a>
                         </li>
-                        <!-- Repita a lógica para os outros links -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link {% if request.path == '/loans/' %}active{% endif %}" href="{% url 'dashboard-loans' %}"
+                                aria-expanded="false">
+                                <span>
+                                    <i class="bi bi-hourglass-bottom icons"></i>
+                                </span>
+                                <span class="hide-menu">Empréstimos</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
+                            <span class="hide-menu">Usuários</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link {% if request.path == '/' %}active{% endif %}" href="{% url 'dashboard-operators' %}"
+                                aria-expanded="false">
+                                <span>
+                                    <i class="bi bi-person-check icons"></i>
+                                </span>
+                                <span class="hide-menu">Operadores</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link {% if request.path == '/' %}active{% endif %}" href="{% url 'dashboard-staffs' %}"
+                                aria-expanded="false">
+                                <span>
+                                    <i class="bi bi-person-arms-up icons"></i>
+                                </span>
+                                <span class="hide-menu">Funcionários</span>
+                            </a>
+                        </li>
                     </ul>
                     <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
                         <div class="d-flex">
                             <div class="unlimited-access-title me-3">
                                 <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Central do Admin</h6>
-                                <a href=""
+                                <a href="{% url 'admin:index' %}"
                                     target="_blank" class="btn btn-primary fs-2 fw-semibold lh-sm">Acessar</a>
                             </div>
                             <div class="unlimited-access-img">

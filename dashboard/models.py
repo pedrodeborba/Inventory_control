@@ -11,7 +11,7 @@ BRANCH = (
     ('São Paulo (02)', 'São Paulo (02)'),
 )
 
-# Sectors
+# Setores
 class Sector(models.Model):
     name = models.CharField(max_length=100, blank=False)
 
@@ -29,7 +29,7 @@ class Staff(models.Model):
     def __str__(self):
         return f'{self.username}'
 
-# Items
+# Itens
 class Item(models.Model):
     item = models.CharField(max_length=100, blank=False)
 
@@ -110,6 +110,7 @@ class Order(models.Model):
             self.equipment.current_user = None
         self.equipment.save()
 
+# Empréstimos
 class Loan(models.Model):
     quantity = models.IntegerField()
     equipment = models.ForeignKey(Equipment, models.CASCADE, null=True)
@@ -118,6 +119,7 @@ class Loan(models.Model):
     maq = models.IntegerField(null=True, blank=True)
     retreat_date = models.DateField('Data de Retirada')
     devolution_date = models.DateField('Data de Devolução')
+    views = models.PositiveIntegerField(default=0)
 
     def formatted_retreat_date(self):
         return self.retreat_date.strftime('%d/%m/%Y')
@@ -127,7 +129,8 @@ class Loan(models.Model):
 
     def __str__(self):
         return f'Empréstimo de {self.equipment} solicitado por {self.staff.username}'
-    
+
+# Cards
 class Card(models.Model):
     title = models.CharField('Título', max_length=99, blank=True)
     subtitle = models.CharField('Subtítulo', max_length=99, blank=True)
