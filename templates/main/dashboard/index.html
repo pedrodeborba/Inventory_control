@@ -86,8 +86,9 @@
     <div class="col-lg-4 d-flex align-items-stretch">
         <div class="card w-100">
             <div class="card-body p-4">
-                <div class="mb-4 text-center">
+                <div class="mb-4 d-flex justify-content-between">
                     <h5 class="card-title fw-semibold">Movimentações recentes</h5>
+                    <a href="{%url 'dashboard-orders'%}">Ver mais</a>
                 </div>
                 <ul class="timeline-widget mb-0 position-relative mb-n5">
                     {% for order in orders %}
@@ -125,24 +126,27 @@
     <div class="col-lg-8 d-flex align-items-stretch">
         <div class="card w-100">
             <div class="card-body p-4">
-                <h5 class="card-title fw-semibold mb-4">Empréstimos em andamento</h5>
+                <div class="mb-4 d-flex justify-content-between">
+                    <h5 class="card-title fw-semibold">Empréstimos em andamento</h5>
+                    <a href="{%url 'dashboard-loans'%}">Ver mais</a>
+                </div>
                 <div class="table-responsive">
                     <table class="table text-nowrap mb-0 align-middle">
                         <thead class="text-dark fs-4">
                             <tr>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Id</h6>
+                                <th class="border-bottom-0 text-center">
+                                    <h6 class="fw-semibold mb-0">Quantidade</h6>
                                 </th>
-                                <th class="border-bottom-0">
+                                <th class="border-bottom-0 text-center">
                                     <h6 class="fw-semibold mb-0">Solicitante</h6>
                                 </th>
-                                <th class="border-bottom-0">
+                                <th class="border-bottom-0 text-center">
                                     <h6 class="fw-semibold mb-0">Equipamento</h6>
                                 </th>
-                                <th class="border-bottom-0">
+                                <th class="border-bottom-0 text-center">
                                     <h6 class="fw-semibold mb-0">Retirada</h6>
                                 </th>
-                                <th class="border-bottom-0">
+                                <th class="border-bottom-0 text-center">
                                     <h6 class="fw-semibold mb-0">Devolução</h6>
                                 </th>
                             </tr>
@@ -150,23 +154,25 @@
                         <tbody>
                             {% for loan in loans %}
                             <tr>
-                                <td class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">{{ loan.id }}</h6>
+                                <td class="border-bottom-0 text-center">
+                                    <h6 class="fw-semibold mb-0">{{ loan.quantity }}</h6>
                                 </td>
-                                <td class="border-bottom-0">
+                                <td class="border-bottom-0 text-center">
                                     <h6 class="fw-semibold mb-1">{{ loan.staff }}</h6>
                                     <span class="fw-normal">{{ loan.staff_sector }}</span>
                                 </td>
-                                <td class="border-bottom-0">
+                                <td class="border-bottom-0 text-center">
                                     <p class="mb-0 fw-normal">{{ loan.equipment_item|default:"N.E" }} - {{ loan.equipment_model|default:"N.E" }}</p>
                                 </td>
-                                <td class="border-bottom-0">
-                                    <div class="d-flex align-items-center gap-2">
+                                <td class="border-bottom-0 text-center">
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
                                         <span class="badge bg-info rounded-3 fw-semibold">{{ loan.retreat_date }}</span>
                                     </div>
                                 </td>
-                                <td class="border-bottom-0">
-                                    <span class="badge rounded-3 fw-semibold" style="background-color: #5D87FF;">{{ loan.devolution_date }}</span>
+                                <td class="border-bottom-0 text-center">
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        <span class="badge rounded-3 fw-semibold" style="background-color: #5D87FF;">{{ loan.devolution_date }}</span>
+                                    </div>
                                 </td>             
                             </tr>
                             {% endfor %}   

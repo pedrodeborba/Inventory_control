@@ -19,12 +19,10 @@ class EquipmentAdm(admin.ModelAdmin):
     ordering = ['item']
 
 class OrderAdm(admin.ModelAdmin):
-    exclude = ('views',)
     list_display = ('num_called', 'equipment', 'staff', 'sector', 'branch', 'date', 'operator', 'patrimony', 'maq', 'movimentation')
     list_filter = ['equipment', 'staff', 'date', 'sector', 'operator', 'movimentation'] 
 
 class LoanAdm(admin.ModelAdmin):
-    exclude = ('views',)
     list_display = ('quantity', 'equipment', 'staff', 'patrimony', 'maq', 'retreat_date', 'devolution_date')
     
 class CardAdm(admin.ModelAdmin):

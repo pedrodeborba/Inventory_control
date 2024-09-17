@@ -89,7 +89,6 @@ class Order(models.Model):
     patrimony = models.CharField(max_length=6, blank=True, null=True, unique=True)
     maq = models.IntegerField(null=True, blank=True)
     movimentation = models.CharField(max_length=1, blank=False, choices=MOVIMENTATION)
-    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f'{self.equipment} solicitado por {self.staff.username}'
@@ -119,7 +118,6 @@ class Loan(models.Model):
     maq = models.IntegerField(null=True, blank=True)
     retreat_date = models.DateField('Data de Retirada')
     devolution_date = models.DateField('Data de Devolução')
-    views = models.PositiveIntegerField(default=0)
 
     def formatted_retreat_date(self):
         return self.retreat_date.strftime('%d/%m/%Y')

@@ -23,7 +23,7 @@ def dashboard(request):
     total_staffs = Staff.objects.count()
     
     # Horário das orderns para o quarto gráfico
-    orders = Order.objects.order_by('-views')[:5]
+    orders = Order.objects.order_by('-id')[:5]
     formatted_orders = [
         {
             'date_formatted': order.date.strftime('%d/%m/%y às %H:%M'),
@@ -34,12 +34,12 @@ def dashboard(request):
     ]
     
     # Loans
-    loans = Loan.objects.order_by('-views')[:5]
+    loans = Loan.objects.order_by('-id')[:5]
     formatted_loans = [
         {
             'retreat_date': loan.retreat_date.strftime('%d/%m/%y'),
             'devolution_date': loan.devolution_date.strftime('%d/%m/%y'),
-            'id': loan.id,
+            'quantity': loan.quantity,
             'staff': loan.staff,
             'staff_sector': loan.staff.sector,
             'equipment_item': loan.equipment.item,
@@ -174,12 +174,26 @@ def chart_data(request):
 
 @login_required
 def staffs(request):
-    staff = Staff.objects.all()
+    query = request.GET.get('q', '')  # Obtém o parâmetro de pesquisa da URL
 
-    context={
-        'staff': staff,
+    # Filtra os funcionários com base na pesquisa
+    staff_list = Staff.objects.filter(username__icontains=query)
+
+    context = {
+        'staff_list': staff_list,
+        'query': query
     }
     return render(request, 'main/staffs/index.html', context)
+
+@login_required
+def staff_detail(request, staff_id):
+    staff = get_object_or_404(Staff, id=staff_id)
+    equipments = Equipment.objects.filter(current_user=staff)
+    context = {
+        'staff': staff,
+        'equipments': equipments
+    }
+    return render(request, 'main/staffs/staff_detail.html', context)
 
 @login_required
 def create_staff(request):
@@ -223,7 +237,7 @@ def update_staff(request, id):
 #========================Equipments==============================
 @login_required
 def equipments(request):
-    equipment = Equipment.objects.all()
+    equipment = Equipment.objects.order_by('-id')
 
     context={
         'equipment': equipment,
@@ -272,7 +286,7 @@ def update_equipment(request, id):
 #========================Items==============================
 @login_required
 def items(request):
-    item = Item.objects.all()
+    item = Item.objects.order_by('-id')
 
     context={
         'item': item,
@@ -320,7 +334,7 @@ def update_item(request, id):
 #========================Orders==============================
 @login_required
 def orders(request):
-    order = Order.objects.all()
+    order = Order.objects.order_by('-id')
     context = {'order': order}
     return render(request, 'main/orders/index.html', context)
 
@@ -378,7 +392,7 @@ def process_order(request, order_id):
 #========================Loans==============================
 @login_required
 def loans(request):
-    loan = Loan.objects.all()
+    loan = Loan.objects.order_by('-id')
     context = {'loan': loan}
     return render(request, 'main/loans/index.html', context)
 

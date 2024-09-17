@@ -13,6 +13,7 @@ urlpatterns = [
     path('operators/update/<int:id>/', user_views.update_operator, name='dashboard-update-operator'),
     #========================Staffs==============================
     path('staffs/', views.staffs, name='dashboard-staffs'),
+    path('staff/<int:staff_id>/', views.staff_detail, name='dashboard-staff-detail'),
     path('staffs/create/', views.create_staff, name='dashboard-create-staff'),
     path('staffs/delete/<int:id>/', views.delete_staff, name='dashboard-delete-staff'),
     path('staffs/update/<int:id>/', views.update_staff, name='dashboard-update-staff'),
