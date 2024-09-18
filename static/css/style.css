@@ -40,3 +40,31 @@ img.img-thumbnail{
 .bi{
     color: black;
 }
+
+.button-warning:hover{
+    background-color: #007bff !important;
+}
+
+.button-warning i{
+    color: #007bff !important;
+}
+
+.button-warning:hover i{
+    color: #fff !important;
+}
+
+.button-danger:hover{
+    background-color: #ff1900;
+}
+
+.button-danger:hover i{
+    color: #fff !important;
+}
+
+.button-dark:hover{
+    background-color: #909090 !important;
+}
+
+.button-dark:hover i{
+    color: #fff !important;
+}

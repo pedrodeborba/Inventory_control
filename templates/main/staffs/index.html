@@ -8,8 +8,11 @@
             <h2>Funcionários</h2>
         </div>
         <div class="col-lg-4"></div>
-        <div class="col-lg-4 d-flex justify-content-end">
-            <a href="{% url 'dashboard-create-staff' %}" class="btn btn-info float-right">Adicionar</a>
+        <div class="col-lg-4 d-flex justify-content-end align-items-center">
+            <a href="{% url 'dashboard-create-staff' %}" class="btn btn-success float-right">
+                <i class="bi bi-plus-lg text-white"></i>
+                Adicionar
+            </a>
         </div>
     </div>
 
@@ -28,40 +31,43 @@
     <!-- Informações dos Funcionários -->
     <div class="row mt-4">
         <div class="col-lg-12">
-            <table class="table bg-white">
-                <thead class="bg-info text-white">
-                    <tr>
-                        <th class="col text-center">Nome</th>
-                        <th class="col text-center">Email</th>
-                        <th class="col text-center">Crachá</th>
-                        <th class="col text-center">Setor</th>
-                        <th class="col text-center">Cargo</th>
-                        <th class="col text-center">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for staff in staff_list %}
+            <!-- Tabela Responsiva -->
+            <div class="table-responsive">
+                <table class="table bg-white">
+                    <thead class="bg-info text-white">
                         <tr>
-                            <td class="col text-center">{{ staff.username }}</td>
-                            <td class="col text-center">{{ staff.email }}</td>
-                            <td class="col text-center">{{ staff.badge }}</td>
-                            <td class="col text-center">{{ staff.sector }}</td>
-                            <td class="col text-center">{{ staff.ranking }}</td>
-                            <td class="col text-center">
-                                <a class="btn btn-sm mr-2" href="{% url 'dashboard-update-staff' staff.id %}">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <a class="btn btn-sm ml-2" href="{% url 'dashboard-delete-staff' staff.id %}">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                                <a class="btn btn-sm ml-2" href="{% url 'dashboard-staff-detail' staff.id %}">
-                                    Detalhes
-                                </a>
-                            </td>
+                            <th class="col text-center">Nome</th>
+                            <th class="col text-center">Email</th>
+                            <th class="col text-center">Crachá</th>
+                            <th class="col text-center">Setor</th>
+                            <th class="col text-center">Cargo</th>
+                            <th class="col text-center">Ações</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for staff in staff_list %}
+                            <tr>
+                                <td class="col text-center">{{ staff.username }}</td>
+                                <td class="col text-center">{{ staff.email }}</td>
+                                <td class="col text-center">{{ staff.badge }}</td>
+                                <td class="col text-center">{{ staff.sector }}</td>
+                                <td class="col text-center">{{ staff.ranking }}</td>
+                                <td class="col d-flex justify-content-center">
+                                    <a class="btn button-warning mr-2" href="{% url 'dashboard-update-staff' staff.id %}">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a class="btn button-danger ml-2" href="{% url 'dashboard-delete-staff' staff.id %}">
+                                        <i class="bi bi-trash text-danger"></i>
+                                    </a>
+                                    <a class="btn button-dark ml-2" href="{% url 'dashboard-staff-detail' staff.id %}">
+                                        <i class="bi bi-list"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}
