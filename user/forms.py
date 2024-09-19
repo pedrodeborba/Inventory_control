@@ -73,3 +73,8 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Adiciona classe personalizada ao campo
+        self.fields['image'].widget.attrs.update({'class': 'form-control-file'})

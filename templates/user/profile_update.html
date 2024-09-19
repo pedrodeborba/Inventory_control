@@ -1,39 +1,172 @@
 {% extends 'partials/base.html' %}
 {% load crispy_forms_tags %}
+
 {% block title %}Update Profile{% endblock %}
 
 {% block extra_styles %}
 <style>
     body {
         width: 100%;
-        height: 100%;
+        height: 100vh;
         background-image: url('/static/images/backgrounds/ice-montain.jpg');
         background-size: cover;
         background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+    .card-header {
+        background: linear-gradient(45deg, #007bff, #00c6ff);
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding: 15px;
+        font-size: 1.25rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .btn-outline-primary {
+        border: 2px solid #007bff;
+        color: #007bff;
+        font-weight: bold;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    legend {
+        font-size: 1.2rem;
+        color: #495057;
+        border-bottom: 2px solid #dee2e6;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .form-group button {
+        width: 100%;
+        padding: 10px;
+        font-size: 1.1rem;
+        border-radius: 25px;
+    }
+
+    .btn-light {
+        font-weight: bold;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-light:hover {
+        background-color: #f0f0f0;
+        color: #007bff;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .row {
+        margin-bottom: 20px;
+    }
+
+    .profile-image-container {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .profile-image {
+        border-radius: 50%;
+        width: 150px;
+        /* Largura desejada */
+        height: 150px;
+        /* Altura desejada */
+        object-fit: cover;
+        /* Garante que a imagem preencha o container sem distorcer */
+        object-position: center;
+        /* Centraliza a imagem */
+    }
+
+    .icon-edit-image {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        color: #fff;
+        font-size: 24px;
+        background-color: #007bff;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+    }
+
+    #id_image {
+        display: none;
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="row mt-4 d-flex justify-content-center align-items-center">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header bg-info text-white">
-                Atualizando Perfil...
-            </div>
-            <div class="row p-3">
-                <div class="col-md">
+<div class="container">
+    <!-- Botão de voltar -->
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <a href="{% url 'user-profile' %}" class="btn btn-light btn-sm">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </div>
+
+    <!-- Formulário de atualização de perfil -->
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-white">
+                    Atualizando Perfil...
+                </div>
+                <div class="card-body">
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <fieldset class="form-group">
-                            <legend class="border-bottom mb-4">Informações do Usuário</legend>
+                            <legend>Informações do Usuário</legend>
                             {{ u_form|crispy }}
                         </fieldset>
-                        <fieldset class="form-group mt-1">
-                            {{ p_form|crispy }}
+                        <fieldset class="form-group mt-4 text-center">
+                            <!-- Mostra a imagem atual do perfil com ícone de edição -->
+                            <div class="text-center profile-image-container">
+                                {% if user.profile.image %}
+                                <img id="profileImage" src="{{ user.profile.image.url }}" alt="Profile Image"
+                                    class="profile-image img-thumbnail">
+                                {% else %}
+                                <img id="profileImage" src="/static/images/default-profile.png" alt="Default Image"
+                                    class="profile-image img-thumbnail">
+                                {% endif %}
+                                <!-- Ícone de edição da imagem -->
+                                <i class="bi bi-pencil icon-edit-image" onclick="triggerImageUpload()"></i>
+                                <!-- Campo de upload de imagem -->
+                                <input type="file" name="image" id="id_image" accept="image/*"
+                                    onchange="previewImage(event)">
+                            </div>
                         </fieldset>
                         <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-outline-info">Salvar</button>
+                            <button type="submit" class="btn btn-outline-primary">Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -41,4 +174,21 @@
         </div>
     </div>
 </div>
+
+<!-- Script para abrir o seletor de arquivos ao clicar no ícone de lápis -->
+<script>
+    function triggerImageUpload() {
+        document.getElementById('id_image').click();
+    }
+
+    // Função para pré-visualizar a imagem selecionada
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('profileImage');
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 {% endblock %}

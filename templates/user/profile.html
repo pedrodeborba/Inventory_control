@@ -5,11 +5,91 @@
 <style>
     body {
         width: 100%;
-        height: 100%;
+        height: 100vh;
         background-image: url('/static/images/backgrounds/ice-montain.jpg');
         background-size: cover;
         background-repeat: no-repeat;
     }
+
+    .card {
+        border-radius: 1rem;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+        font-size: 1.25rem;
+        font-weight: bold;
+        background-color: #007bff;
+        color: #fff;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+        padding: 1rem;
+    }
+
+    .btn-edit {
+        background-color: #fff;
+        color: #007bff;
+        border: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-edit:hover {
+        background-color: #007bff;
+    }
+
+    .img-thumbnail {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .img-thumbnail:hover {
+        transform: scale(1.1);
+    }
+
+    table {
+        margin-top: 1rem;
+    }
+
+    th {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #007bff;
+    }
+
+    td {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .table-borderless th, .table-borderless td {
+        border: none;
+    }
+
+    .card-footer {
+        background-color: #f8f9fa;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .card-footer a {
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .card-footer a:hover {
+        color: #f00;
+    }
+
 </style>
 {% endblock %}
 
@@ -17,18 +97,23 @@
 <div class="row mt-5 d-flex justify-content-center align-items-center">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <span>Perfil de usuário</span>
-                <a href="{% url 'user-profile-update' %}" class="btn btn-light btn-sm text-info">
-                    Editar
+                <a href="{% url 'user-profile-update' %}" class="btn btn-edit">
+                    Editar Perfil
                 </a>
             </div>
-            <div class="row p-3">
+            <div class="row p-4">
+                <div class="col-md-4 d-flex align-items-center justify-content-center">
+                    <a href="{{ user.profile.image.url }}" target="_blank">
+                        <img class="img-thumbnail" src="{{ user.profile.image.url }}" alt="profile-image">
+                    </a>
+                </div>                
                 <div class="col-md-8">
                     <table class="table table-borderless">
                         <thead>
                             <tr>
-                                <th colspan="2">Informações de Perfil</th>
+                                <th colspan="2"><strong>Informações de Perfil</strong></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,9 +140,9 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-4 d-flex align-items-center justify-content-center">
-                    <img class="img-thumbnail" src="{{ user.profile.image.url }}" alt="profile-image">
-                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'user-logout' %}">Sair da conta</a>
             </div>
         </div>
     </div>
