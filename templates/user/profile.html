@@ -1,12 +1,12 @@
 {% extends 'partials/base.html' %}
 {% block title %}Profile Page{% endblock %}
-
+{% load static %}
 {% block extra_styles %}
 <style>
     body {
         width: 100%;
         height: 100vh;
-        background-image: url('/static/images/backgrounds/ice-montain.jpg');
+        background-image: url('{% static "images/backgrounds/ice-montain.jpg" %}');
         background-size: cover;
         background-repeat: no-repeat;
     }

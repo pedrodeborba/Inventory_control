@@ -1,6 +1,18 @@
 {% extends 'partials/base.html' %}
-
 {% block title %} Funcionários {% endblock %}
+{% load static %}
+{% block extra_styles %}
+<style>
+    body {
+        width: 100%;
+        height: 100vh;
+        background-image: url('{% static "images/backgrounds/bg02.jpg" %}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
     <div class="row mt-4">
