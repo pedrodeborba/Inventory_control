@@ -135,13 +135,13 @@
                         <thead class="text-dark fs-4">
                             <tr>
                                 <th class="border-bottom-0 text-center">
-                                    <h6 class="fw-semibold mb-0">Quantidade</h6>
-                                </th>
-                                <th class="border-bottom-0 text-center">
                                     <h6 class="fw-semibold mb-0">Solicitante</h6>
                                 </th>
                                 <th class="border-bottom-0 text-center">
                                     <h6 class="fw-semibold mb-0">Equipamento</h6>
+                                </th>
+                                <th class="border-bottom-0 text-center">
+                                    <h6 class="fw-semibold mb-0">Quantidade</h6>
                                 </th>
                                 <th class="border-bottom-0 text-center">
                                     <h6 class="fw-semibold mb-0">Retirada</h6>
@@ -155,14 +155,14 @@
                             {% for loan in loans %}
                             <tr>
                                 <td class="border-bottom-0 text-center">
-                                    <h6 class="fw-semibold mb-0">{{ loan.quantity }}</h6>
-                                </td>
-                                <td class="border-bottom-0 text-center">
                                     <h6 class="fw-semibold mb-1">{{ loan.staff }}</h6>
                                     <span class="fw-normal">{{ loan.staff_sector }}</span>
                                 </td>
                                 <td class="border-bottom-0 text-center">
                                     <p class="mb-0 fw-normal">{{ loan.equipment_item|default:"N.E" }} - {{ loan.equipment_model|default:"N.E" }}</p>
+                                </td>
+                                <td class="border-bottom-0 text-center">
+                                    <h6 class="fw-semibold mb-0">{{ loan.quantity }}</h6>
                                 </td>
                                 <td class="border-bottom-0 text-center">
                                     <div class="d-flex justify-content-center align-items-center gap-2">
