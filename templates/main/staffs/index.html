@@ -1,24 +1,6 @@
 {% extends 'partials/base.html' %}
 {% block title %} Funcionários {% endblock %}
 {% load static %}
-{% block extra_styles %}
-<style>
-    body {
-        width: 100%;
-        height: 100vh;
-        background-image: url('{% static "images/backgrounds/bg02.jpg" %}');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-    .table-responsive {
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        opacity: 0.9;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
     <div class="row mt-4">
         <div class="col-lg-4">
@@ -76,7 +58,7 @@
                                     <a class="btn button-danger ml-2" href="{% url 'dashboard-delete-staff' staff.id %}">
                                         <i class="bi bi-trash text-danger"></i>
                                     </a>
-                                    <a class="btn button-dark ml-2" href="{% url 'dashboard-staff-detail' staff.id %}">
+                                    <a class="btn button-dark ml-2" href="{% url 'dashboard-detail-staff' staff.id %}">
                                         <i class="bi bi-list"></i>
                                     </a>
                                 </td>
@@ -87,4 +69,21 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block extra_styles %}
+<style>
+    body {
+        width: 100%;
+        height: 100vh;
+        background-image: url('{% static "images/backgrounds/bg02.jpg" %}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    .table-responsive {
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        opacity: 0.9;
+    }
+</style>
 {% endblock %}

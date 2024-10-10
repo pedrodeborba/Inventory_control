@@ -186,14 +186,14 @@ def staffs(request):
     return render(request, 'main/staffs/index.html', context)
 
 @login_required
-def staff_detail(request, staff_id):
+def detail_staff(request, staff_id):
     staff = get_object_or_404(Staff, id=staff_id)
     equipments = Equipment.objects.filter(current_user=staff)
     context = {
         'staff': staff,
         'equipments': equipments
     }
-    return render(request, 'main/staffs/staff_detail.html', context)
+    return render(request, 'main/staffs/detail_staff.html', context)
 
 @login_required
 def create_staff(request):
@@ -334,9 +334,23 @@ def update_item(request, id):
 #========================Orders==============================
 @login_required
 def orders(request):
-    order = Order.objects.order_by('-id')
-    context = {'order': order}
+    query = request.GET.get('q', '')
+
+    order_list = Order.objects.filter(num_called__icontains=query)
+
+    context = {
+        'order_list': order_list,
+        'query': query
+    }
     return render(request, 'main/orders/index.html', context)
+
+@login_required
+def detail_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    context = {
+        'order': order,
+    }
+    return render(request, 'main/orders/detail_order.html', context)
 
 @login_required
 def create_order(request):
