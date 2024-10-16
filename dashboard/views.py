@@ -334,13 +334,23 @@ def update_item(request, id):
 #========================Orders==============================
 @login_required
 def orders(request):
-    query = request.GET.get('q', '')
+    filter_type = request.GET.get('filter_type', '')  # Filtro de Entrada/Saída
+    query = request.GET.get('q', '')  # Pesquisa por número do chamado
 
-    order_list = Order.objects.filter(num_called__icontains=query)
+    order_list = Order.objects.all()
+
+    # Filtra por tipo de movimentação
+    if filter_type == Order.ENTRY:
+        order_list = order_list.filter(movimentation=Order.ENTRY)
+    elif filter_type == Order.EXIT:
+        order_list = order_list.filter(movimentation=Order.EXIT)
 
     context = {
         'order_list': order_list,
-        'query': query
+        'filter_type': filter_type,
+        'query': query,
+        'ENTRY': Order.ENTRY,
+        'EXIT': Order.EXIT,
     }
     return render(request, 'main/orders/index.html', context)
 

@@ -1,13 +1,19 @@
-{% extends 'partials/base.html' %}
+{% extends 'partials/create.html' %}
 {% block title %} Adicionar Operador {% endblock %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="card card-body">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <input class="btn btn-success btn-block" type="submit" value="Adicionar">
-    </form>
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-8">
+        <div class="card card-body">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="d-flex justify-content-end">
+                    <input class="btn btn-primary btn-block" type="submit" value="Adicionar">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

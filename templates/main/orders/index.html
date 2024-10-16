@@ -2,77 +2,83 @@
 {% block title %} Ordens {% endblock %}
 {% load static %}
 {% block content %}
-    <div class="row mt-4">
-        <div class="col-lg-4">
-            <h2>Ordens</h2>
-        </div>
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4 d-flex justify-content-end align-items-center">
-            <a href="{% url 'dashboard-create-order' %}" class="btn btn-success float-right">
-                <i class="bi bi-plus-lg text-white"></i>
-                Adicionar
-            </a>
-        </div>
+<div class="row mt-4">
+    <div class="col-lg-4">
+        <h2>Ordens</h2>
     </div>
-
-    <!-- Formulário de Pesquisa -->
-    <div class="row mt-4">
-        <div class="col-lg-12">
-            <form method="get" action="{% url 'dashboard-orders' %}">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="q" value="{{ query }}" placeholder="Pesquisar por nome...">
-                    <button class="btn btn-primary" type="submit">Pesquisar</button>
-                </div>
-            </form>
-        </div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4 d-flex justify-content-end align-items-center">
+        <a href="{% url 'dashboard-create-order' %}" class="btn btn-success float-right">
+            <i class="bi bi-plus-lg text-white"></i>
+            Adicionar
+        </a>
     </div>
+</div>
 
-    <div class="row mt-4">
-        <div class="col-lg-12">
-            <!-- Tabela Responsiva -->
-            <div class="table-responsive">
-                <table class="table bg-white">
-                    <thead class="bg-info text-white">
-                        <tr>
-                            <th class="col text-center">Chamado</th>
-                            <th class="col text-center">Equipamento</th>
-                            <th class="col text-center">Solicitante</th>
-                            <th class="col text-center">Setor</th>
-                            <th class="col text-center">Movimentação</th>
-                            <th class="col text-center">Operador</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for order in order_list %}
-                            <tr>
-                                <td class="col text-center">{{ order.num_called }}</td>
-                                <td class="col text-center">{{ order.equipment }}</td>
-                                <td class="col text-center">{{ order.staff }}</td>
-                                <td class="col text-center">{{ order.sector }}</td>
-                                {% if order.movimentation == "E" %}
-                                    <td class="col text-center">Entrada</td>
-                                {% else %}
-                                    <td class="col text-center">Saída</td>
-                                {% endif %}
-                                <td class="col text-center">{{ order.operator }}</td>
-                                <td class="col d-flex justify-content-center">
-                                    <a class="btn button-warning mr-2" href="{% url 'dashboard-update-order' order.id %}">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <a class="btn button-danger ml-2" href="{% url 'dashboard-delete-order' order.id %}">
-                                        <i class="bi bi-trash text-danger"></i>
-                                    </a>
-                                    <a class="btn button-dark ml-2" href="{% url 'dashboard-detail-order' order.id %}">
-                                        <i class="bi bi-list"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+<!-- Formulário de Filtro -->
+<div class="row mt-4">
+    <div class="col-lg-12">
+        <form method="get" action="{% url 'dashboard-orders' %}" id="filterForm">
+            <div class="input-group mb-3">
+                <select name="filter_type" class="form-control" onchange="this.form.submit()">
+                    <option value="">Todos</option>
+                    <option value="{{ ENTRY }}" {% if filter_type == ENTRY %}selected{% endif %}>Entrada</option>
+                    <option value="{{ EXIT }}" {% if filter_type == EXIT %}selected{% endif %}>Saída</option>
+                </select>
+                <input type="text" class="form-control" name="q" value="{{ query }}" placeholder="Pesquisar pelo número do chamado...">
+                <button class="btn btn-primary" type="submit">Pesquisar</button>
             </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col-lg-12">
+        <!-- Tabela Responsiva -->
+        <div class="table-responsive">
+            <table class="table bg-white">
+                <thead class="bg-info text-white">
+                    <tr>
+                        <th class="col text-center">Chamado</th>
+                        <th class="col text-center">Equipamento</th>
+                        <th class="col text-center">Solicitante</th>
+                        <th class="col text-center">Setor</th>
+                        <th class="col text-center">Movimentação</th>
+                        <th class="col text-center">Operador</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in order_list %}
+                    <tr>
+                        <td class="col text-center">{{ order.num_called }}</td>
+                        <td class="col text-center">{{ order.equipment }}</td>
+                        <td class="col text-center">{{ order.staff }}</td>
+                        <td class="col text-center">{{ order.sector }}</td>
+                        <td class="col text-center">{{ order.get_movimentation_display }}</td>
+                        <td class="col text-center">{{ order.operator }}</td>
+                        <td class="col d-flex justify-content-center">
+                            <a class="btn button-warning mr-2" href="{% url 'dashboard-update-order' order.id %}">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a class="btn button-danger ml-2" href="{% url 'dashboard-delete-order' order.id %}">
+                                <i class="bi bi-trash text-danger"></i>
+                            </a>
+                            <a class="btn button-dark ml-2" href="{% url 'dashboard-detail-order' order.id %}">
+                                <i class="bi bi-list"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">Nenhuma ordem encontrada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 {% endblock %}
 {% block extra_styles %}
 <style>
@@ -84,6 +90,7 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
+
     .table-responsive {
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

@@ -1,0 +1,37 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/favicon.png' %}" />
+
+    {% include 'partials/link_and_script.html' %}
+
+    <!-- Custom CSS -->
+    {% block styles %}
+    <link rel="stylesheet" href="{% static 'css/create.css' %}">
+    {% block extra_styles %}{% endblock %}
+    {% endblock %}
+
+</head>
+
+<body>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="fixed" data-header-position="fixed">
+        {% include 'partials/sidebar.html' %}
+        <div class="body-wrapper">
+            {% include 'partials/header.html' %}
+            <div class="container-fluid">
+                <i class="ti ti-alert-circle" style="background-color: black; color: black;"></i>
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
