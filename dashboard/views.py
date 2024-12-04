@@ -286,11 +286,16 @@ def update_equipment(request, id):
 #========================Items==============================
 @login_required
 def items(request):
-    item = Item.objects.order_by('-id')
+    query = request.GET.get('q', '')  # Obtém o parâmetro de pesquisa da URL
 
-    context={
-        'item': item,
+    # Filtra os itens com base na pesquisa
+    item_list = Item.objects.filter(item__icontains=query)
+
+    context = {
+        'item_list': item_list,
+        'query': query
     }
+    
     return render(request, 'main/items/index.html', context)
 
 @login_required
