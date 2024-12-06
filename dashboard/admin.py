@@ -10,7 +10,7 @@ class StaffAdm(admin.ModelAdmin):
 
 class EquipmentAdm(admin.ModelAdmin):
     list_display = (
-        'item', 'model', 'manufacturer', 'maq', 'patrimony', 'sn_pn', 
+        'item', 'manufacturer', 'model', 'maq', 'patrimony', 'sn_pn', 
         'cost_center', 'express_code', 'immobilized', 'nf', 'nf_date', 
         'information', 'sector', 'supplier'
     )

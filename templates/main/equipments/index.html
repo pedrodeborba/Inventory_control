@@ -1,18 +1,38 @@
 {% extends 'partials/base.html' %}
 {% block title %} Equipamentos {% endblock %}
-
+{% load static %}
 {% block content %}
-    <div class="row mt-4">
-        <div class="col-lg-4">
-            <h2>Equipamentos</h2>
-        </div>
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4 d-flex justify-content-end">
-            <a href="{% url 'dashboard-create-equipment' %}" class="btn btn-info float-right">Adicionar</a>
-        </div>
+<div class="row mt-4">
+    <div class="col-lg-4">
+        <h2>Equipamentos</h2>
     </div>
-    <div class="row mt-2">
-        <div class="col-lg">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4 d-flex justify-content-end align-items-center">
+        <a href="{% url 'dashboard-create-equipment' %}" class="btn btn-success float-right">
+            <i class="bi bi-plus-lg text-white"></i>
+            Adicionar
+        </a>
+    </div>
+</div>
+
+<!-- Formulário de Pesquisa -->
+<div class="row mt-4">
+    <div class="col-lg-12">
+        <form method="get" action="{% url 'dashboard-equipments' %}">
+            <div class="input-group">
+                <input type="text" class="form-control" name="q" value="{{ query }}"
+                    placeholder="Pesquisar pelo número de série">
+                <button class="btn btn-primary" type="submit">Pesquisar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Informações dos Equipamentos -->
+<div class="row mt-4">
+    <div class="col-lg-12">
+        <!-- Tabela Responsiva -->
+        <div class="table-responsive">
             <table class="table bg-white">
                 <thead class="bg-info text-white">
                     <tr>
@@ -27,34 +47,57 @@
                         <th class="col text-center">NF</th>
                         <th class="col text-center">Data NF</th>
                         <th class="col text-center">Setor</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    {% for equipment in equipment %}
-                        <tr>
-                            <td class="col text-center">{{ equipment.item|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.model|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.maq|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.patrimony|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.sn_pn|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.cost_center|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.express_code|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.immobilized|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.nf|default_if_none:"" }}</td>
-                            <td class="col text-center">{{ equipment.nf_date|date:"d/m/Y" }}</td>
-                            <td class="col text-center">{{ equipment.sector|default_if_none:"" }}</td>
-                            <td class="col text-center">
-                                <a class="btn btn-sm mr-2" href="{% url 'dashboard-update-equipment' equipment.id %}">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <a class="btn btn-sm ml-2" href="{% url 'dashboard-delete-equipment' equipment.id %}">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    {% for equipment in equipment_list %}
+                    <tr>
+                        <td class="col text-center">{{ equipment.item|default_if_none:"" }}</td>
+                        <td class="col text-center">{{ equipment.model|default_if_none:"" }}</td>
+                        <td class="col text-center">{{ equipment.maq|default_if_none:"" }}</td>
+                        <td class="col text-center">{{ equipment.patrimony|default_if_none:"" }}</td>
+                        <td class="col text-center">{{ equipment.sn_pn|default_if_none:"" }}</td>
+                        <td class="col text-center">{{ equipment.cost_center|default_if_none:"" }}</td>
+                        <td class="col text-center">{{ equipment.express_code|default_if_none:"" }}</td>
+                        <td class="col text-center">{{ equipment.immobilized|default_if_none:"" }}</td>
+                        <td class="col text-center">{{ equipment.nf|default_if_none:"" }}</td>
+                        <td class="col text-center">{{ equipment.nf_date|date:"d/m/Y" }}</td>
+                        <td class="col text-center">{{ equipment.sector|default_if_none:"" }}</td>
+
+                        <td class="col d-flex justify-content-center">
+                            <a class="btn button-warning mr-2"
+                                href="{% url 'dashboard-update-equipment' equipment.id %}">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a class="btn button-danger ml-2"
+                                href="{% url 'dashboard-delete-equipment' equipment.id %}">
+                                <i class="bi bi-trash text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+</div>
+{% endblock %}
+{% block extra_styles %}
+<style>
+    body {
+        width: 100%;
+        height: 100vh;
+        background-image: url('{% static "images/backgrounds/bg02.jpg" %}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .table-responsive {
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        opacity: 0.9;
+    }
+</style>
 {% endblock %}

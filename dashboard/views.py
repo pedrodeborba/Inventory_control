@@ -237,10 +237,14 @@ def update_staff(request, id):
 #========================Equipments==============================
 @login_required
 def equipments(request):
-    equipment = Equipment.objects.order_by('-id')
+    query = request.GET.get('q', '') # Obtém o parâmetro de pesquisa da URL
 
-    context={
-        'equipment': equipment,
+    # Filtra os equipamentos com base na pesquisa
+    equipment_list = Equipment.objects.filter(sn_pn__icontains=query)
+
+    context = {
+        'equipment_list': equipment_list,
+        'query': query
     }
     return render(request, 'main/equipments/index.html', context)
 

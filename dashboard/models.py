@@ -39,9 +39,9 @@ class Item(models.Model):
 # Equipamentos
 class Equipment(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
+    manufacturer = models.CharField('Fabricante', max_length=255, blank=True, null=True)
     model = models.CharField('Modelo', max_length=255, blank=True, null=True)
     current_user = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True, blank=True, related_name='current_equipment') #Reponsável pelo equipamento
-    manufacturer = models.CharField('Fabricante', max_length=255, blank=True, null=True)
     maq = models.IntegerField('Maq', null=True, blank=True)
     patrimony = models.IntegerField('Patrimônio', blank=True, null=True, unique=True)
     sn_pn = models.CharField('S/N - P/N', max_length=50, blank=True, null=True)
