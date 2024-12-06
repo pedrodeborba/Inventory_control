@@ -42,8 +42,7 @@ def dashboard(request):
             'quantity': loan.quantity,
             'staff': loan.staff,
             'staff_sector': loan.staff.sector,
-            'equipment_item': loan.equipment.item,
-            'equipment_model': loan.equipment.model
+            'item': loan.item,
         }
         for loan in loans
     ]
@@ -425,8 +424,15 @@ def process_order(request, order_id):
 #========================Loans==============================
 @login_required
 def loans(request):
-    loan = Loan.objects.order_by('-id')
-    context = {'loan': loan}
+    query = request.GET.get('q', '')
+
+    loan_list = Loan.objects.filter(staff__username__icontains=query)
+
+    context = {
+        'loan_list': loan_list,
+        'query': query
+    }
+
     return render(request, 'main/loans/index.html', context)
 
 @login_required

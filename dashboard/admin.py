@@ -23,7 +23,7 @@ class OrderAdm(admin.ModelAdmin):
     list_filter = ['equipment', 'staff', 'date', 'sector', 'operator', 'movimentation'] 
 
 class LoanAdm(admin.ModelAdmin):
-    list_display = ('quantity', 'equipment', 'staff', 'patrimony', 'maq', 'retreat_date', 'devolution_date')
+    list_display = ('quantity', 'item', 'staff', 'patrimony', 'maq', 'retreat_date', 'devolution_date')
     
 class CardAdm(admin.ModelAdmin):
     list_display = ('title', 'subtitle', 'link')

@@ -111,8 +111,8 @@ class Order(models.Model):
 
 # Empréstimos
 class Loan(models.Model):
-    quantity = models.IntegerField()
-    equipment = models.ForeignKey(Equipment, models.CASCADE, null=True)
+    quantity = models.IntegerField('Quantidade', default=1)
+    item = models.ForeignKey(Item, models.CASCADE, null=True)
     staff = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
     patrimony = models.CharField(max_length=6, blank=True, null=True, unique=True)
     maq = models.IntegerField(null=True, blank=True)
@@ -126,7 +126,7 @@ class Loan(models.Model):
         return self.devolution_date.strftime('%d/%m/%Y')
 
     def __str__(self):
-        return f'Empréstimo de {self.equipment} solicitado por {self.staff.username}'
+        return f'Empréstimo de {self.item} solicitado por {self.staff.username}'
 
 # Cards
 class Card(models.Model):

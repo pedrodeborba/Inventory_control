@@ -43,4 +43,4 @@ class OrderForm(forms.ModelForm):
 class LoanForm(forms.ModelForm):
     class Meta:
         model = Loan
-        fields = ['quantity', 'equipment', 'staff', 'patrimony', 'maq', 'retreat_date', 'devolution_date']
+        fields = ['quantity', 'item', 'staff', 'patrimony', 'maq', 'retreat_date', 'devolution_date']
