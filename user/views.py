@@ -3,8 +3,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm, UserUpdateForm, ProfileUpdateForm, CustomUserUpdateForm
-from .models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 #=============================Register================================
 def register(request):
@@ -47,8 +48,13 @@ def profile_update(request):
 #============================Operators================================
 @login_required
 def operators(request):
-    user = User.objects.all()
-    context = {'user': user}
+    query = request.GET.get('q', '')
+    user_list = User.objects.filter(username__icontains=query)
+    context = {
+        'user_list': user_list,
+        'query': query
+    }
+
     return render(request, 'main/operators/index.html', context)
 
 @login_required
