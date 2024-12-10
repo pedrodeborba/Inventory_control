@@ -19,7 +19,8 @@
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
                     style="background-color: #007bff; color: white; padding: 1rem; border-bottom: 2px solid #dee2e6;">
                     <h5 class="mb-0" style="font-size: 1.25rem; font-weight: bold;">Informações do Funcionário</h5>
-                    <a href="{% url 'dashboard-staffs' %}" class="btn btn-light btn-sm" style="color: #495057; background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                    <a href="{% url 'dashboard-staffs' %}" class="btn btn-light btn-sm"
+                        style="color: #495057; background-color: #f8f9fa; border: 1px solid #dee2e6;">
                         <i class="bi bi-arrow-left" style="font-size: 1rem;"></i> Voltar
                     </a>
                 </div>
@@ -34,9 +35,10 @@
                                 {{ staff.username }}
                             </h4>
                             <p class="card-text mb-1" style="font-size: 1rem;"><strong>Email:</strong> {{ staff.email }}</p>
-                            <p class="card-text mb-1" style="font-size: 1rem;"><strong>Crachá:</strong> {{ staff.badge }}</p>
-                            <p class="card-text mb-1" style="font-size: 1rem;"><strong>Setor:</strong> {{ staff.sector }}</p>
-                            <p class="card-text mb-1" style="font-size: 1rem;"><strong>Cargo:</strong> {{ staff.ranking }}</p>
+                            <p class="card-text mb-1" style="font-size: 1rem;"><strong>Crachá:</strong> {{ staff.badge}}</p>
+                            <p class="card-text mb-1" style="font-size: 1rem;"><strong>Setor:</strong> {{ staff.sector}}</p>
+                            <p class="card-text mb-1" style="font-size: 1rem;"><strong>Cargo:</strong> {{ staff.ranking}}</p>
+                            <p class="card-text mb-1" style="font-size: 1rem;"><strong>Filial:</strong> {{ staff.branch}}</p>
                         </div>
                     </div>
                 </div>
@@ -45,16 +47,47 @@
 
         <div class="col-lg-6">
             <div class="card shadow-lg rounded-lg border-light" style="border-radius: 1rem;">
-                <div class="card-header bg-secondary text-white"
-                    style="background-color: #6c757d; color: white; padding: 1rem;">
-                    Desktop Connection
+                <div class="card-header bg-danger text-white d-flex justify-content-between align-items_center" style="background-color: #ff0000; color: white; padding: 1rem;">
+                    <div class="m-auto" style="font-size: 1.25rem; font-weight: bold;">
+                        Histórico de Empréstimos
+                    </div>
+                    <div>
+                    <!-- Botão Ver Mais -->
+                    {% if has_more %}
+                        <div class="text-center">
+                            <a href="{% url 'dashboard-loans' %}" class="btn btn-danger">
+                                Ver mais
+                            </a>
+                        </div>
+                    {% endif %}
+                    </div>
                 </div>
                 <div class="card-body" style="background-color: #f8f9fa; padding: 1.5rem;">
-                    <p class="text-muted" style="font-size: 1rem;">Campo para lógica de Desktop Connection será
-                        implementado futuramente.</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="font-size: 1rem;">Item</th>
+                                <th class="text-center" style="font-size: 1rem;">Data de Início</th>
+                                <th class="text-center" style="font-size: 1rem;">Data de Término</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for loan in loans %}
+                            <tr>
+                                <td class="text-center" style="font-size: 1rem;">{{ loan.item|default_if_none:"" }}</td>
+                                <td class="text-center" style="font-size: 1rem;">{{ loan.retreat_date|date:"d/m/Y" }}</td>
+                                <td class="text-center" style="font-size: 1rem;">{{ loan.devolution_date|date:"d/m/Y" }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center" style="font-size: 1rem;">Nenhum empréstimo encontrado.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 
     <!-- Equipamentos Vinculados -->
@@ -80,10 +113,10 @@
                             <tbody>
                                 {% for equipment in equipments %}
                                 <tr>
-                                    <td class="text-center" style="font-size: 1rem;">{{ equipment.item }}</td>
-                                    <td class="text-center" style="font-size: 1rem;">{{ equipment.model }}</td>
-                                    <td class="text-center" style="font-size: 1rem;">{{ equipment.patrimony }}</td>
-                                    <td class="text-center" style="font-size: 1rem;">{{ equipment.manufacturer }}</td>
+                                    <td class="text-center" style="font-size: 1rem;">{{equipment.item|default_if_none:"" }}</td>
+                                    <td class="text-center" style="font-size: 1rem;">{{equipment.model|default_if_none:"" }}</td>
+                                    <td class="text-center" style="font-size: 1rem;">{{equipment.patrimony|default_if_none:"" }}</td>
+                                    <td class="text-center" style="font-size: 1rem;">{{equipment.manufacturer|default_if_none:"" }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

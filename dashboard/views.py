@@ -186,12 +186,24 @@ def staffs(request):
 
 @login_required
 def detail_staff(request, staff_id):
+    # Obter os detalhes do staff
     staff = get_object_or_404(Staff, id=staff_id)
+    
+    # Equipamentos associados ao staff
     equipments = Equipment.objects.filter(current_user=staff)
+    
+    # Últimos 5 empréstimos do staff
+    all_loans = Loan.objects.filter(staff=staff).order_by('-retreat_date')  # Ordena pela data mais recente
+    loans = all_loans[:5]  # Obtém somente os últimos 5 empréstimos
+    has_more = all_loans.count() > 5  # Verifica se existem mais de 5 empréstimos
+
     context = {
         'staff': staff,
-        'equipments': equipments
+        'equipments': equipments,
+        'loans': loans,
+        'has_more': has_more  # Flag para exibir "Ver mais"
     }
+    
     return render(request, 'main/staffs/detail_staff.html', context)
 
 @login_required
