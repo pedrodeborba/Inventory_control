@@ -13,25 +13,26 @@ BRANCH = (
 
 # Setores
 class Sector(models.Model):
-    name = models.CharField(max_length=100, blank=False)
+    name = models.CharField('Setor', max_length=100, blank=False)
 
     def __str__(self):
         return f'{self.name}'
 
 # Funcionários
 class Staff(models.Model):
-    username = models.CharField(max_length=100, null=True)
-    email = models.EmailField(max_length=254, null=True)
-    badge = models.IntegerField(null=True, unique=True)
+    username = models.CharField('Nome de Usuário', max_length=100, null=True)
+    email = models.EmailField('Email', max_length=254, null=True)
+    badge = models.IntegerField('Crachá', null=True, unique=True)
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE, null=True)
-    ranking = models.CharField(max_length=100, null=True)
+    ranking = models.CharField('Cargo', max_length=100, null=True)
+    branch = models.CharField('Filial', max_length=50, choices=BRANCH)
 
     def __str__(self):
         return f'{self.username}'
 
 # Itens
 class Item(models.Model):
-    item = models.CharField(max_length=100, blank=False)
+    item = models.CharField('Item', max_length=100, blank=False)
 
     def __str__(self):
         return f'{self.item}'
@@ -78,17 +79,17 @@ class Order(models.Model):
         (EXIT, 'Saída')
     )
     
-    num_called = models.IntegerField()
+    num_called = models.IntegerField('Chamado')
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, null=True)
-    information = models.CharField(max_length=255, blank=True, null=True)
+    information = models.CharField('Informação Adicional', max_length=255, blank=True, null=True)
     staff = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE)
-    branch = models.CharField(max_length=50, choices=BRANCH)
-    date = models.DateTimeField(auto_now_add=True)
+    branch = models.CharField('Filial', max_length=50, choices=BRANCH)
+    date = models.DateTimeField('Data', auto_now_add=True)
     operator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
-    patrimony = models.CharField(max_length=6, blank=True, null=True, unique=True)
-    maq = models.IntegerField(null=True, blank=True)
-    movimentation = models.CharField(max_length=1, blank=False, choices=MOVIMENTATION)
+    patrimony = models.CharField('Patrimônio', max_length=6, blank=True, null=True, unique=True)
+    maq = models.IntegerField('MAQ', null=True, blank=True)
+    movimentation = models.CharField('Movimentação', max_length=1, blank=False, choices=MOVIMENTATION)
 
     def __str__(self):
         return f'{self.equipment} solicitado por {self.staff.username}'
@@ -114,8 +115,8 @@ class Loan(models.Model):
     quantity = models.IntegerField('Quantidade', default=1)
     item = models.ForeignKey(Item, models.CASCADE, null=True)
     staff = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
-    patrimony = models.CharField(max_length=6, blank=True, null=True, unique=True)
-    maq = models.IntegerField(null=True, blank=True)
+    patrimony = models.CharField('Patrimônio', max_length=6, blank=True, null=True, unique=True)
+    maq = models.IntegerField('MAQ', null=True, blank=True)
     retreat_date = models.DateField('Data de Retirada')
     devolution_date = models.DateField('Data de Devolução')
 

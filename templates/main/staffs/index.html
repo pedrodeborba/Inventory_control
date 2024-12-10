@@ -40,6 +40,7 @@
                             <th class="col text-center">Crachá</th>
                             <th class="col text-center">Setor</th>
                             <th class="col text-center">Cargo</th>
+                            <th class="col text-center">Filial</th>
                             <th class="col text-center">Ações</th>
                         </tr>
                     </thead>
@@ -51,6 +52,7 @@
                                 <td class="col text-center">{{ staff.badge }}</td>
                                 <td class="col text-center">{{ staff.sector }}</td>
                                 <td class="col text-center">{{ staff.ranking }}</td>
+                                <td class="col text-center">{{ staff.branch }}</td>
                                 <td class="col d-flex justify-content-center">
                                     <a class="btn button-warning mr-2" href="{% url 'dashboard-update-staff' staff.id %}">
                                         <i class="bi bi-pencil-square"></i>

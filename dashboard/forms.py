@@ -16,7 +16,7 @@ class EquipmentForm(forms.ModelForm):
 class StaffForm(forms.ModelForm):
     class Meta:
         model = Staff
-        fields = ['username', 'email', 'badge', 'sector', 'ranking']
+        fields = ['username', 'email', 'badge', 'sector', 'ranking', 'branch']
 
 class ItemForm(forms.ModelForm):
     class Meta:

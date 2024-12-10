@@ -5,7 +5,7 @@ from .models import Staff, Equipment, Order, Item, Sector, Loan, Card
 admin.site.site_header = 'TI - Usaflex'
 
 class StaffAdm(admin.ModelAdmin):
-    list_display = ('username', 'email', 'badge', 'sector', 'ranking')
+    list_display = ('username', 'email', 'badge', 'sector', 'ranking', 'branch')
     list_filter = ['sector', 'ranking']
 
 class EquipmentAdm(admin.ModelAdmin):
