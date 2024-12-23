@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
     'user.apps.UserConfig',
+    'notify.apps.NotifyConfig',
+    # Terceiros
+    'notifications',
     'crispy_forms',
     "crispy_bootstrap4",
 ]

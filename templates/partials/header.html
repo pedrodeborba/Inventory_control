@@ -1,41 +1,50 @@
 {% load static %}
-<!--  Header Start -->
 <header class="app-header">
     <nav class="navbar navbar-expand-lg navbar-light">
         <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
-                <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse"
-                    href="javascript:void(0)">
+                <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
                     <i class="bi bi-list"></i>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="notificationDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-bell"></i>
                     <div class="notification bg-primary rounded-circle"></div>
                 </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+                    aria-labelledby="notificationDropdown">
+                    <div class="notification-body">
+                        {% for notification in notifications %}
+                        <div class="notification-item">
+                            <p>{{ notification.verb }}</p>
+                            <small>{{ notification.timestamp|date:"d/m/Y H:i" }}</small>
+                        </div>
+                        {% empty %}
+                        <p>Nenhuma notificação.</p>
+                        {% endfor %}
+                    </div>
+                </div>
             </li>
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/"
-                    target="_blank" class="btn btn-primary">teste</a>
+                <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank"
+                    class="btn btn-primary">teste</a>
                 <li class="nav-item dropdown">
-                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         <img src="{% static 'images/profile/user.jpg' %}" alt="" width="35" height="35"
                             class="rounded-circle">
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
-                        aria-labelledby="drop2">
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
-                            <a href="{% url 'user-profile' %}"
-                                class="d-flex align-items-center gap-2 dropdown-item">
+                            <a href="{% url 'user-profile' %}" class="d-flex align-items-center gap-2 dropdown-item">
                                 <i class="ti ti-user fs-6"></i>
                                 <p class="mb-0 fs-3">Meu Perfil</p>
                             </a>
-                            <a href="{% url 'user-logout' %}"
-                                class="btn btn-outline-primary mx-3 mt-2 d-block">Sair</a>
+                            <a href="{% url 'user-logout' %}" class="btn btn-outline-primary mx-3 mt-2 d-block">Sair</a>
                         </div>
                     </div>
                 </li>

@@ -119,6 +119,7 @@ class Loan(models.Model):
     maq = models.IntegerField('MAQ', null=True, blank=True)
     retreat_date = models.DateField('Data de Retirada')
     devolution_date = models.DateField('Data de Devolução')
+    is_completed = models.BooleanField('Status', default=False)
 
     def formatted_retreat_date(self):
         return self.retreat_date.strftime('%d/%m/%Y')
