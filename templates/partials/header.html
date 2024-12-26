@@ -8,35 +8,22 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="notificationDropdown"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link nav-icon-hover" href="#" id="notificationDropdown" data-bs-toggle="modal" data-bs-target="#notificationsModal">
                     <i class="bi bi-bell"></i>
-                    <div class="notification bg-primary rounded-circle"></div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
-                    aria-labelledby="notificationDropdown">
-                    <div class="notification-body">
-                        {% for notification in notifications %}
-                        <div class="notification-item">
-                            <p>{{ notification.verb }}</p>
-                            <small>{{ notification.timestamp|date:"d/m/Y H:i" }}</small>
-                        </div>
-                        {% empty %}
-                        <p>Nenhuma notificação.</p>
-                        {% endfor %}
+                    {% if unread_notifications_count > 0 %}
+                    <div class="notification bg-primary rounded-circle">
+                        {{ unread_notifications_count }}
                     </div>
-                </div>
+                    {% endif %}
+                </a>
             </li>
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank"
-                    class="btn btn-primary">teste</a>
+                <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">teste</a>
                 <li class="nav-item dropdown">
-                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <img src="{% static 'images/profile/user.jpg' %}" alt="" width="35" height="35"
-                            class="rounded-circle">
+                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{% static 'images/profile/user.jpg' %}" alt="" width="35" height="35" class="rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
@@ -52,3 +39,34 @@
         </div>
     </nav>
 </header>
+
+<!-- Modal de Notificações -->
+<div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationsModalLabel">Notificações</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% if unread_notifications_count > 0 %}
+                    <p>Você tem <strong>{{ unread_notifications_count }}</strong> notificações não lidas.</p>
+                    <ul class="list-group">
+                        {% for notification in notifications %}
+                            <li class="list-group-item">
+                                <a href="{% url 'list_notifications'%}">
+                                    {{ notification.verb }} - {{ notification.timestamp|date:"d/m/Y H:i" }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Você não tem notificações.</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+{% extends 'partials/update.html' %}
+{% block title %}Detalhes do Empréstimo{% endblock %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start">
+                <div>
+                    <h2 class="text-secondary">Status: {% if loan.is_completed %}Concluído{% else %}Em andamento{% endif %}</h2>
+                </div>
+                <div class="mt-3 mt-md-0">
+                    <a href="{% url 'dashboard-update-loan' loan.id %}" class="btn btn-primary me-2">
+                        <i class="bi bi-pencil text-white"></i> Editar
+                    </a>
+                    <a href="{% url 'dashboard-delete-loan' loan.id %}" class="btn btn-danger me-2">
+                        <i class="bi bi-trash text-white"></i> Excluir
+                    </a>
+                    <a href="javascript:history.back()" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left text-white"></i> Voltar
+                    </a>                    
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-between mt-3 bg-light p-3 rounded shadow">
+                <div class="col-12 col-md-6 items">
+                    <p class="card-text display-6"><strong>Item:</strong> {{ loan.item }}</p>
+                    <p class="card-text display-6"><strong>Usuário:</strong> {{ loan.staff }}</p>
+                </div>
+                <div class="col-12 col-md-6 text-end items">
+                    <p class="card-text display-6"><strong>Solicitação:</strong> {{ loan.retreat_date }}</p>
+                    <p class="card-text display-6"><strong>Devolução:</strong> {{ loan.devolution_date }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    body {
+        width: 100%;
+        height: 100%;
+        background-image: url('{% static "images/backgrounds/bg02.jpg" %}');
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
+    .card {
+        background: none;
+        border: none;
+    }
+    a {
+        margin-top: 10px;
+    }
+    .col-md-6 {
+        background: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+    .btn {
+        min-width: 100px;
+    }
+
+    /* Aumentar tamanho dos textos */
+    .display-5 {
+        font-size: 2.5rem; /* Aumenta o tamanho do título */
+    }
+    .display-6 {
+        font-size: 1.5rem; /* Aumenta o tamanho dos parágrafos */
+    }
+
+    /* Consulta de Mídia para Centralizar Texto em Telas Pequenas */
+    @media (max-width: 768px) {
+        .items {
+            text-align: start !important;
+        }
+    }
+</style>
+{% endblock %}

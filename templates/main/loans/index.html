@@ -59,6 +59,9 @@
                                 href="{% url 'dashboard-delete-loan' loan.id %}">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
+                            <a class="btn button-dark ml-2" href="{% url 'dashboard-detail-loan' loan.id %}">
+                                <i class="bi bi-list"></i>
+                            </a>
                         </td>
                     </tr>
                     {% endfor %}

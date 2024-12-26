@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'notify.context_processors.unread_notifications_context',
             ],
             'debug': True,
         },
@@ -116,7 +117,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -152,3 +153,5 @@ LOGIN_URL = 'user-login'
 AUTH_USER_MODEL = 'user.User' # Personalizar o modelo padrão de User (nome, email, crachá, setor, cargo)
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y', '%Y-%m-%d']
+
+DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}

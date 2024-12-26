@@ -1,0 +1,44 @@
+{% extends 'partials/base.html' %}
+{% block title %} Notificações {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row d-flex justify-content-center align-items-center mt-4">
+    <div class="col-md-8">
+        <h1 class="mb-4">📩 Notificações</h1>
+        
+        {% if notifications %}
+        <ul class="list-group">
+            {% for notification in notifications %}
+            <li class="list-group-item d-flex justify-content-between align-items-center shadow-sm mb-2">
+                <div>
+                    <h5 class="mb-1">{{ notification.verb }}</h5>
+                    <p class="mb-1 text-muted">{{ notification.description|safe }}</p>
+                    <small class="text-secondary">{{ notification.timestamp|date:"d/m/Y H:i" }}</small>
+                </div>
+                {% if notification.url %}
+                <a href="{{ notification.url }}" class="btn btn-md btn-primary m-1">
+                    <i class="bi bi-eye text-light"></i>
+                </a>                
+                {% else %}
+                <span class="badge bg-secondary text-white">Sem link</span>
+                {% endif %}
+                <!-- Botão para excluir a notificação -->
+                <form action="{% url 'delete_notification' notification.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-md btn-success m-1">
+                        <i class="bi bi-check text-light"></i>
+                    </button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="alert alert-info text-center shadow-sm">
+            <h5>🎉 Nenhuma notificação por aqui!</h5>
+            <p>Você está atualizado.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

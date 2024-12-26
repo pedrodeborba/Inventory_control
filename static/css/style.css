@@ -69,3 +69,10 @@ img.img-thumbnail{
 .button-dark:hover i{
     color: #fff !important;
 }
+
+.custom-dropdown {
+    z-index: 1050;
+    background-color: white;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}

@@ -10,7 +10,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
-    # path('notify/', include('notify.urls')),
+    path('notifications/', include('notify.urls')),
     path('register/', user_views.register, name='user-register'),
     path('profile/', user_views.profile, name='user-profile'),
     path('profile/update/', user_views.profile_update, name='user-profile-update'),

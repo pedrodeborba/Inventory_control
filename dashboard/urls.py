@@ -39,4 +39,5 @@ urlpatterns = [
     path('loans/create/', views.create_loan, name='dashboard-create-loan'),
     path('loans/delete/<int:id>/', views.delete_loan, name='dashboard-delete-loan'),
     path('loans/update/<int:id>/', views.update_loan, name='dashboard-update-loan'),
+    path('loans/<int:pk>/', views.detail_loan, name='dashboard-detail-loan'),
 ]

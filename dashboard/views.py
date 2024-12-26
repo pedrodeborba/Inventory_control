@@ -484,3 +484,7 @@ def update_loan(request, id):
         'loan': loan
     }
     return render(request, 'main/loans/update_loan.html', context)
+
+def detail_loan(request, pk):
+    loan = get_object_or_404(Loan, pk=pk)
+    return render(request, 'main/loans/loan_detail.html', {'loan': loan})

@@ -6,6 +6,7 @@ from notifications.signals import notify
 from .models import Card, Loan
 from django.contrib.auth import get_user_model
 from babel.dates import format_date
+from django.urls import reverse
 
 # Função auxiliar para remover a imagem do sistema de arquivos
 def remove_image(image_path):
@@ -43,6 +44,7 @@ def delete_image_on_change(sender, instance, **kwargs):
 @receiver(post_save, sender=Loan)
 def check_loan_due(sender, instance, created, **kwargs):
     current_date = timezone.now().date()
+    
     # Verifica se a data de devolução é anterior à data atual e se não está concluído
     if instance.devolution_date < current_date and not instance.is_completed:
         User = get_user_model()  # Obtém o modelo de usuário personalizado
@@ -64,6 +66,11 @@ def check_loan_due(sender, instance, created, **kwargs):
         else:
             formatted_devolution_date = 'Data inválida'
 
+        # Gera a URL do empréstimo
+        loan_url = reverse('dashboard-detail-loan', kwargs={'pk': instance.pk})
+        print(f"URL do empréstimo: {loan_url}")
+
+        
         # Envia uma notificação para cada usuário
         for user in users:
             notify.send(
@@ -72,6 +79,7 @@ def check_loan_due(sender, instance, created, **kwargs):
                 verb=f'O empréstimo passou da data prevista!',
                 action_object=instance,
                 target=instance.item,
-                description=f'O empréstimo de {instance.item} solicitado por {user} venceu dia {formatted_devolution_date}.'
+                description=f'Empréstimo de <u>{instance.item}</u> solicitado por <u>{user}</u>.\nVenceu dia {formatted_devolution_date}.',
+                url=loan_url
             )
 
