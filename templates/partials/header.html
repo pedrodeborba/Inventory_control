@@ -20,23 +20,36 @@
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">teste</a>
                 <li class="nav-item dropdown">
-                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{% static 'images/profile/user.jpg' %}" alt="" width="35" height="35" class="rounded-circle">
+                    <!-- Dropdown Toggle -->
+                    <a class="nav-link nav-icon-hover position-relative" href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{% static 'images/profile/user.jpg' %}" alt="User Avatar" width="40" height="40" class="rounded-circle shadow-sm">
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                        <div class="message-body">
-                            <a href="{% url 'user-profile' %}" class="d-flex align-items-center gap-2 dropdown-item">
-                                <i class="ti ti-user fs-6"></i>
-                                <p class="mb-0 fs-3">Meu Perfil</p>
-                            </a>
-                            <a href="{% url 'user-logout' %}" class="btn btn-outline-primary mx-3 mt-2 d-block">Sair</a>
+                    <!-- Dropdown Menu -->
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up shadow-lg border-0 p-3" aria-labelledby="userDropdown">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'images/profile/user.jpg' %}" alt="User Avatar" width="50" height="50" class="rounded-circle shadow-sm me-2">
+                            <div>
+                                <h6 class="mb-0 text-dark">Olá, {{ user.username }}</h6>
+                                <small class="text-muted">{{ user.email }}</small>
+                            </div>
                         </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'user-profile' %}" class="dropdown-item d-flex align-items-center gap-2">
+                            <i class="ti ti-user fs-5 text-primary"></i>
+                            <span>Meu Perfil</span>
+                        </a>
+                        <form method="POST" action="{% url 'user-logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item d-flex align-items-center gap-2 text-danger">
+                                <i class="ti ti-logout fs-5"></i>
+                                <span>Sair</span>
+                            </button>
+                        </form>
                     </div>
                 </li>
             </ul>
-        </div>
+        </div>               
     </nav>
 </header>
 
